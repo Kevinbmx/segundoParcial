@@ -19,21 +19,7 @@ import java.util.ArrayList;
 public class TransaccionDaoSqlServer extends TransaccionDao {
 
     public int insert(Transaccion obj) throws Exception {
-//        Conexion objConexion = Conexion.getOrCreate();
-//        int id = 0;
-//        StringBuilder query = new StringBuilder("exec InsertarTransaccion ");
-//        query.append("" + obj.getMonto() + ",");
-//        query.append("'" + obj.getFecha() + "' ,");
-//        query.append("" + obj.getFK_idCategoria() + " ,");
-//        query.append("" + obj.getFk_idcuenta() + " ,");
-//        query.append("'" + obj.getTipo() + "' ");
-//        
-//        id = objConexion.ejecutarInsert(query.toString());
-//        if (id == 0) {
-//            throw new Exception("El registro no pudo ser insertado");
-//        }
-//        objConexion.desconectar();
-//        return id;
+
         Conexion objConexion = Conexion.getOrCreate();
         int id = 0;
         PreparedStatement ps = objConexion.getObjConnection().prepareStatement("exec InsertarTransaccion ?,?,?,?,?");
@@ -42,7 +28,6 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
         ps.setInt(3, obj.getFK_idCategoria());
         ps.setInt(4, obj.getFk_idcuenta());
         ps.setString(5, obj.getTipo());
-//        id = objConexion.ejecutarInsert(ps.toString());
         int rpt = ps.executeUpdate();
         ps.getMoreResults();
         if (rpt == 1) {

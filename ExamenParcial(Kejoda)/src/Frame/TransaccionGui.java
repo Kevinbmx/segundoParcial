@@ -6,9 +6,16 @@
 package Frame;
 
 import dal.Conexion;
+import dao.CategoriaDao;
+import dao.CuentaDao;
 import dao.TransaccionDao;
+import dto.Categoria;
+import dto.Cuenta;
 import dto.Transaccion;
 import factory.FactoryDao;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -25,6 +32,8 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
     public TransaccionGui() {
         initComponents();
         mostrarDatos();
+        llenarCombocuenta();
+        llenarCombocategoria();
     }
 
     /**
@@ -94,7 +103,7 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Categoria");
 
-        jLabel6.setText("Venta");
+        jLabel6.setText("Cuenta");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -206,6 +215,41 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
         }
 
         Tabla.setModel(modelo);
+    }
+    
+    public void llenarCombocuenta(){
+        this.cmbidcuenta.removeAllItems();
+    try {
+        CuentaDao objDao = FactoryDao.getFactoryInstance().getNewCuentaDao();
+        List<Cuenta> lista = new ArrayList();
+        lista = objDao.getList();
+        for (int i = 0; i <lista.size(); i++) {
+            String cuenta=String.valueOf(lista.get(i).getCuentaId());
+            cmbidcuenta.addItem(cuenta);
+            //System.out.println("/////"+cuenta);
+        }
+        
+    } catch (Exception e) {
+        System.out.print(e);
+    }
+        
+    }
+    public void llenarCombocategoria(){
+        this.cmbidcategoria.removeAllItems();
+    try {
+        CategoriaDao objDao = FactoryDao.getFactoryInstance().getNewCategoriaDao();
+        List<Categoria> lista = new ArrayList();
+        lista = objDao.getList();
+        for (int i = 0; i <lista.size(); i++) {
+            String categoria=String.valueOf(lista.get(i).getCategoriaId());
+            cmbidcategoria.addItem(categoria);
+            //System.out.println("/////"+cuenta);
+        }
+        
+    } catch (Exception e) {
+        System.out.print(e);
+    }
+        
     }
 
 
