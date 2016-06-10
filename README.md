@@ -1,0 +1,2 @@
+# segundoParcial
+Administrador de dinero
