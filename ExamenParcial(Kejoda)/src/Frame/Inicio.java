@@ -112,7 +112,13 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jmenucreartransferenciaActionPerformed
 
     private void jmenucreartransaccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenucreartransaccionActionPerformed
-        // TODO add your handling code here:
+         try {
+            TransaccionGui t = new TransaccionGui();
+            jDesktopPane1.add(t);
+            t.show();
+            t.setLocation(50, 5);
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_jmenucreartransaccionActionPerformed
 
     /**

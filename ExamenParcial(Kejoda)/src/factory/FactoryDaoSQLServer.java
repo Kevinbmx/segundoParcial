@@ -29,4 +29,9 @@ class FactoryDaoSQLServer extends FactoryDao {
         return new CuentaDaoSqlServer();
     }
 
+    @Override
+    public TransaccionDao geTransaccionDao() {
+        return new TransaccionDaoSqlServer();
+    }
+
 }

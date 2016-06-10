@@ -23,6 +23,8 @@ public abstract class FactoryDao {
     public abstract CategoriaDao getNewCategoriaDao();
 
     public abstract CuentaDao getNewCuentaDao();
+    
+     public abstract TransaccionDao geTransaccionDao();
 
     private String getDbEngine() {
         return dbEngine;
