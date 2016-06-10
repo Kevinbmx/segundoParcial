@@ -59,6 +59,8 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        labelcategoria = new javax.swing.JLabel();
+        labelcuenta = new javax.swing.JLabel();
 
         jLabel1.setText("Monto");
 
@@ -91,8 +93,18 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
         });
 
         cmbidcategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1" }));
+        cmbidcategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbidcategoriaActionPerformed(evt);
+            }
+        });
 
         cmbidcuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1" }));
+        cmbidcuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbidcuentaActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("EXIT");
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -104,6 +116,10 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
         jLabel5.setText("Categoria");
 
         jLabel6.setText("Cuenta");
+
+        labelcategoria.setText(".");
+
+        labelcuenta.setText(".");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,7 +152,11 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbidcategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbidcuenta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(198, 198, 198))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelcategoria)
+                    .addComponent(labelcuenta))
+                .addGap(133, 133, 133))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,13 +166,15 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbidcategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(labelcategoria))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtfecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbidcuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(labelcuenta))
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -193,6 +215,32 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void cmbidcategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbidcategoriaActionPerformed
+       try {
+        CategoriaDao objDao = FactoryDao.getFactoryInstance().getNewCategoriaDao();
+        Categoria obj=new Categoria();
+        obj=objDao.get(Integer.parseInt(cmbidcategoria.getSelectedItem().toString()));
+        labelcategoria.setText(""+obj.getNombreCategoria());
+       
+        
+    } catch (Exception e) {
+        System.out.print(e);
+    }
+    }//GEN-LAST:event_cmbidcategoriaActionPerformed
+
+    private void cmbidcuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbidcuentaActionPerformed
+           try {
+        CuentaDao objDao = FactoryDao.getFactoryInstance().getNewCuentaDao();
+        Cuenta obj=new Cuenta();
+        obj=objDao.get(Integer.parseInt(cmbidcategoria.getSelectedItem().toString()));
+        labelcategoria.setText(""+obj.getNombreCuenta());
+       
+        
+    } catch (Exception e) {
+        System.out.print(e);
+    }
+    }//GEN-LAST:event_cmbidcuentaActionPerformed
 
     public void mostrarDatos() {
         DefaultTableModel modelo = new DefaultTableModel();
@@ -265,6 +313,8 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelcategoria;
+    private javax.swing.JLabel labelcuenta;
     private javax.swing.JTextField txtMonto;
     private javax.swing.JTextField txtfecha;
     private javax.swing.JTextField txttipo;
