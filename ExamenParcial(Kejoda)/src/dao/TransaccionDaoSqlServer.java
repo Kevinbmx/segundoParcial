@@ -20,13 +20,13 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
     public int insert(Transaccion obj) throws Exception {
         Conexion objConexion = Conexion.getOrCreate();
         int id = 0;
-        StringBuilder query = new StringBuilder("INSERT INTO tblTransaccion (monto, fecha,idcatergoria,idcuenta,tipo) VALUES (");
-        query.append("'" + obj.getMonto() + "',");
+        StringBuilder query = new StringBuilder("exec InsertarTransaccion ");
+        query.append("" + obj.getMonto() + ",");
         query.append("'" + obj.getFecha() + "' ,");
-        query.append("'" + obj.getFK_idCategoria() + "' ,");
-        query.append("'" + obj.getFk_idcuenta() + "' ,");
+        query.append("" + obj.getFK_idCategoria() + " ,");
+        query.append("" + obj.getFk_idcuenta() + " ,");
         query.append("'" + obj.getTipo() + "' ");
-        query.append(")");
+        
         id = objConexion.ejecutarInsert(query.toString());
         if (id == 0) {
             throw new Exception("El registro no pudo ser insertado");
@@ -50,7 +50,7 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
         ArrayList<Transaccion> registros = new ArrayList<Transaccion>();
         try {
             Conexion objConexion = Conexion.getOrCreate();
-            String query = "SELECT idtransaccion, monto, fecha,idcatergoria,idcuenta,tipo FROM tblTransaccion";
+            String query = "exec seleccionarTransaccion";
             ResultSet objResultSet = objConexion.ejecutarSelect(query);
             while (objResultSet.next()) {
 

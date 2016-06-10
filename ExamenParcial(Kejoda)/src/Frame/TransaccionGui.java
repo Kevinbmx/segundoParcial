@@ -11,6 +11,8 @@ import dto.Transaccion;
 import factory.FactoryDao;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -19,8 +21,6 @@ import javax.swing.table.DefaultTableModel;
  * @author Uway
  */
 public class TransaccionGui extends javax.swing.JInternalFrame {
-
-    
 
     public TransaccionGui() {
         initComponents();
@@ -48,6 +48,8 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
         cmbidcategoria = new javax.swing.JComboBox<>();
         cmbidcuenta = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         jLabel1.setText("Monto");
 
@@ -79,9 +81,9 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
             }
         });
 
-        cmbidcategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbidcategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1" }));
 
-        cmbidcuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbidcuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1" }));
 
         jLabel4.setText("EXIT");
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -89,6 +91,10 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
                 jLabel4MouseClicked(evt);
             }
         });
+
+        jLabel5.setText("Categoria");
+
+        jLabel6.setText("Venta");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,6 +119,10 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
                     .addComponent(txtfecha)
                     .addComponent(txtMonto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbidcategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -126,12 +136,14 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbidcategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbidcategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtfecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbidcuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbidcuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -151,25 +163,40 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
+        System.out.println(cmbidcategoria.getSelectedItem().toString());
+        try {
+            TransaccionDao objDao = FactoryDao.getFactoryInstance().geTransaccionDao();
+            Transaccion obj = new Transaccion();
+            obj.setMonto(Integer.parseInt(txtMonto.getText()));
+            obj.setFecha(txtfecha.getText());
+
+            obj.setFK_idCategoria(Integer.parseInt(cmbidcategoria.getSelectedItem().toString()));
+            obj.setFk_idcuenta(Integer.parseInt(cmbidcuenta.getSelectedItem().toString()));
+            obj.setTipo(txttipo.getText());
+
+            objDao.insert(obj);
+        } catch (Exception ex) {
+            Logger.getLogger(TransaccionGui.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        mostrarDatos();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-       dispose();
+        dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
 
     public void mostrarDatos() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("ID");
-        modelo.addColumn("Monto");
         modelo.addColumn("Fecha");
         modelo.addColumn("tipo");
+        modelo.addColumn("Monto");
         Tabla.setModel(modelo);
 
         String[] datos = new String[4];
         TransaccionDao objDao = FactoryDao.getFactoryInstance().geTransaccionDao();
-        List<Transaccion> lista=new ArrayList();
-        lista =objDao.getList();
+        List<Transaccion> lista = new ArrayList();
+        lista = objDao.getList();
         for (int i = 0; i < lista.size(); i++) {
             datos[0] = String.valueOf(lista.get(i).getIdTransaccion());
             datos[1] = lista.get(i).getFecha();
@@ -178,11 +205,8 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
             modelo.addRow(datos);
         }
 
-        
-        Tabla.setModel (modelo);
+        Tabla.setModel(modelo);
     }
-
-    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -194,6 +218,8 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtMonto;
     private javax.swing.JTextField txtfecha;
