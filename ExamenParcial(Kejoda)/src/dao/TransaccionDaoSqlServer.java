@@ -85,7 +85,7 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
     public Transaccion get(int id) {
         try {
             Conexion objConexion = Conexion.getOrCreate();
-            String query = "SELECT idtransaccion, monto, fecha,idcatergoria,idcuenta,tipo FROM tblTransaccion WHERE idtransaccion = " + id;
+            String query = "exec selectbyId " + id;
             ResultSet objResultSet = objConexion.ejecutarSelect(query);
             if (objResultSet.next()) {
                 Transaccion obj = new Transaccion();
