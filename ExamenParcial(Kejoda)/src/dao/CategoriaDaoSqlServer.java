@@ -57,7 +57,7 @@ public class CategoriaDaoSqlServer extends CategoriaDao {
         categorias = new ArrayList<Categoria>();
         try {
             Conexion objConexion = Conexion.getOrCreate();
-            String query = "SELECT idcategoria, nombrecategoria,descripcion FROM tblCategoria";
+            String query = "select*from [fn_listatablacategoria]()";
             ResultSet objResultSet = objConexion.ejecutarSelect(query);
             while (objResultSet.next()) {
                 Categoria obj = new Categoria();

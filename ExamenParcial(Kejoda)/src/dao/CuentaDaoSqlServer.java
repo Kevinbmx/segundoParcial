@@ -40,7 +40,7 @@ public class CuentaDaoSqlServer extends CuentaDao {
         cuenta = new ArrayList<Cuenta>();
         try {
             Conexion objConexion = Conexion.getOrCreate();
-            String query = "SELECT idcuenta, nombrecuenta,montototal FROM tblCuenta";
+            String query = "select*from [fn_listatablacuenta]()";
             ResultSet objResultSet = objConexion.ejecutarSelect(query);
             while (objResultSet.next()) {
                 Cuenta obj = new Cuenta();
