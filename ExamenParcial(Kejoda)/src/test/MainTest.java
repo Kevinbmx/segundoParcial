@@ -14,15 +14,14 @@ import java.util.logging.Logger;
 
 public class MainTest {
 
-
     public static void main(String[] args) {
 
         try {
 
             CategoriaDao objDao = FactoryDao.getFactoryInstance().getNewCategoriaDao();
             Categoria obj = new Categoria();
-            obj.setNombreCategoria("transporte");
-            obj.setDescripcion("casa");
+            obj.setNombreCategoria("aloja3");
+            obj.setDescripcion("de casa a la U");
 
             int id = objDao.insert(obj);
 
