@@ -21,7 +21,7 @@ public class MainTest {
             CategoriaDao objDao = FactoryDao.getFactoryInstance().getNewCategoriaDao();
             Categoria obj = new Categoria();
             obj.setNombreCategoria("aloja3");
-            obj.setDescripcion("de casa a la U");
+            obj.setDescripcion("de casa a la Universidad");
 
             int id = objDao.insert(obj);
 
@@ -31,6 +31,10 @@ public class MainTest {
                     + " | Nombrecategoria: " + obj.getNombreCategoria()
                     + " | descripcion: " + obj.getDescripcion());
 
+            
+           
+            
+            
 //            UsuarioDao objDao = FactoryDao.getFactoryInstance().getNewUsuarioDao();
 //            Usuario obj = new Usuario();
 //            obj.setNombre("juan perez");

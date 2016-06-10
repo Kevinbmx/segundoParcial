@@ -1,11 +1,30 @@
 package Frame;
 
+import dao.CategoriaDao;
+import dao.CuentaDao;
+import dao.TransaccionDao;
+import dto.Categoria;
+import dto.Cuenta;
+import dto.Transaccion;
+import factory.FactoryDao;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 public class CuentaCategoria extends javax.swing.JInternalFrame {
 
-    
-        
+    CategoriaDao objDao;
+//    Connection cc;
+
     public CuentaCategoria() {
         initComponents();
+        llenarTablacategoria();
+        llenarTablacuenta();
+//        llenarCombo();
     }
 
     @SuppressWarnings("unchecked")
@@ -39,19 +58,19 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tbpelicula1 = new javax.swing.JTable();
+        tblcuenta = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         btneditarcuenta = new javax.swing.JButton();
         btnañadircuenta = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tbpelicula2 = new javax.swing.JTable();
+        tblcategoria = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         btnañadircategoria = new javax.swing.JButton();
         btneditarcategoria = new javax.swing.JButton();
 
-        jDialogCrearcuenta.setPreferredSize(new java.awt.Dimension(400, 320));
-        jDialogCrearcuenta.setSize(new java.awt.Dimension(400, 300));
+        jDialogCrearcuenta.setPreferredSize(new java.awt.Dimension(400, 340));
+        jDialogCrearcuenta.setSize(new java.awt.Dimension(400, 345));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -81,6 +100,13 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
         jLabel6.setText("Nombre de usuario");
 
         jLabel7.setText("Nombre de Cuenta");
+
+        cbnombreusuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1" }));
+        cbnombreusuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbnombreusuarioActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Aceptar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -166,7 +192,8 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jDialogcrearCategoria.setSize(new java.awt.Dimension(481, 400));
+        jDialogcrearCategoria.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jDialogcrearCategoria.setSize(new java.awt.Dimension(500, 400));
 
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -303,7 +330,7 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Cuenta", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 3, 14))); // NOI18N
 
-        tbpelicula1.setModel(new javax.swing.table.DefaultTableModel(
+        tblcuenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -314,8 +341,8 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
 
             }
         ));
-        tbpelicula1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane3.setViewportView(tbpelicula1);
+        tblcuenta.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(tblcuenta);
 
         jLabel3.setText("Lista");
 
@@ -368,7 +395,7 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Categoria", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 3, 14))); // NOI18N
 
-        tbpelicula2.setModel(new javax.swing.table.DefaultTableModel(
+        tblcategoria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -379,8 +406,8 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
 
             }
         ));
-        tbpelicula2.getTableHeader().setReorderingAllowed(false);
-        jScrollPane4.setViewportView(tbpelicula2);
+        tblcategoria.getTableHeader().setReorderingAllowed(false);
+        jScrollPane4.setViewportView(tblcategoria);
 
         jLabel2.setText("Lista");
 
@@ -491,6 +518,87 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
         jDialogcrearCategoria.setVisible(true);
     }//GEN-LAST:event_btneditarcategoriaActionPerformed
 
+    private void cbnombreusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbnombreusuarioActionPerformed
+//        try {
+//            String sql = "select distinct dbo.fn_generoid('" + cbgenero.getSelectedItem().toString() + "')as genero  from pelicula";
+//            Statement st = cn.createStatement();
+//            ResultSet rs = st.executeQuery(sql);
+//            while (rs.next()) {
+//                txtgenero.setText(String.valueOf(rs.getInt("genero")));
+//            }
+//        } catch (Exception e) {
+//        }
+    }//GEN-LAST:event_cbnombreusuarioActionPerformed
+
+    public void llenarTablacuenta() {
+
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("ID");
+        modelo.addColumn("NOMBRE");
+        modelo.addColumn("MONTO");
+
+        tblcuenta.setModel(modelo);
+
+        String[] datos = new String[4];
+        CuentaDao objDao = FactoryDao.getFactoryInstance().getNewCuentaDao();
+        List<Cuenta> lista = new ArrayList();
+        lista = objDao.getList();
+        for (int i = 0; i < lista.size(); i++) {
+            datos[0] = String.valueOf(lista.get(i).getCuentaId());
+            datos[1] = lista.get(i).getNombreCuenta();
+            datos[2] = String.valueOf(lista.get(i).getMonto());
+            modelo.addRow(datos);
+        }
+        tblcuenta.setModel(modelo);
+    }
+
+    public void llenarTablacategoria() {
+
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("ID");
+        modelo.addColumn("NOMBRE");
+        modelo.addColumn("DESCRPCION");
+
+        tblcategoria.setModel(modelo);
+
+        String[] datos = new String[4];
+        CategoriaDao objDao = FactoryDao.getFactoryInstance().getNewCategoriaDao();
+        List<Categoria> lista = new ArrayList();
+        lista = objDao.getList();
+        for (int i = 0; i < lista.size(); i++) {
+            datos[0] = String.valueOf(lista.get(i).getCategoriaId());
+            datos[1] = lista.get(i).getNombreCategoria();
+            datos[2] = String.valueOf(lista.get(i).getDescripcion());
+            modelo.addRow(datos);
+        }
+        tblcategoria.setModel(modelo);
+    }
+
+    public void llenarCombo() {
+
+//        this.cbnombreusuario.removeAllItems();
+//        try {
+//            Statement sent = cc.createStatement();
+//            ResultSet rs = sent.executeQuery("Select doctorId,nombre from tbl_doctor");
+//            while (rs.next()) {
+//                this.cbnombreusuario.addItem(rs.getString("nombre"));
+//            }
+//        } catch (SQLException e) {
+//            System.out.print(e);
+//
+//        }
+        try {
+            objDao = FactoryDao.getFactoryInstance().getNewCategoriaDao();
+            objDao.ListCategoria();
+            for (int i = 0; i < objDao.ListCategoria().size(); i++) {
+                this.cbnombreusuario.addItem(objDao.ListCategoria().get(i).toString());
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnañadircategoria;
@@ -525,8 +633,8 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTable tbpelicula1;
-    private javax.swing.JTable tbpelicula2;
+    private javax.swing.JTable tblcategoria;
+    private javax.swing.JTable tblcuenta;
     private javax.swing.JTextField txtmonto;
     private javax.swing.JTextField txtnombrecuenta;
     private javax.swing.JTextField txtnombrecuenta1;

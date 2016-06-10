@@ -43,4 +43,13 @@ public class Categoria {
         this.descripcion = descripcion;
     }
 
+    @Override
+    public String toString() {
+        return "Categoria{" + "nombreCategoria=" + nombreCategoria + '}';
+    }
+
+   
+    
+    
+
 }

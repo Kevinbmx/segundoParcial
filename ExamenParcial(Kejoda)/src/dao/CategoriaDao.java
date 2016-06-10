@@ -22,5 +22,7 @@ public abstract class CategoriaDao {
 
     public abstract ArrayList<Categoria> getList();
 
+    public abstract ArrayList<Categoria> ListCategoria();
+
     public abstract Categoria get(int id);
 }

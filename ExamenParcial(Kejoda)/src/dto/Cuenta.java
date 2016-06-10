@@ -3,6 +3,7 @@ package dto;
 public class Cuenta {
 
     private int CuentaId;
+    private String nombreCuenta;
     private int monto;
     private int usuarioId;
 
@@ -34,4 +35,13 @@ public class Cuenta {
         this.usuarioId = usuarioId;
     }
 
+    public String getNombreCuenta() {
+        return nombreCuenta;
+    }
+
+    public void setNombreCuenta(String nombreUsuario) {
+        this.nombreCuenta = nombreUsuario;
+    }
+
+    
 }

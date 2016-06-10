@@ -53,7 +53,7 @@ public class UsuarioDaoSqlServer extends UsuarioDao {
         ArrayList<Usuario> registros = new ArrayList<Usuario>();
         try {
             Conexion objConexion = Conexion.getOrCreate();
-            String query = "SELECT contactoId, nombreusuario, telefono FROM tblusuarios";
+            String query = "SELECT idusuario, nombreusuario, telefono FROM tblusuarios";
             ResultSet objResultSet = objConexion.ejecutarSelect(query);
             while (objResultSet.next()) {
                 Usuario obj = new Usuario();
