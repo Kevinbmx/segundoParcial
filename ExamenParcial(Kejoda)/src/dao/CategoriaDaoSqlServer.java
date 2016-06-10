@@ -7,8 +7,11 @@ package dao;
 
 import dal.Conexion;
 import dto.Categoria;
+import dto.Usuario;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,9 +27,11 @@ public class CategoriaDaoSqlServer extends CategoriaDao {
         PreparedStatement ps = objConexion.getObjConnection().prepareStatement("exec insertarcategoria ?,?");
         ps.setString(1, obj.getNombreCategoria());
         ps.setString(2, obj.getDescripcion());
-        id = ps.executeUpdate(ps.toString());
-        if (id == 0) {
-            throw new Exception("El registro no pudo ser insertado");
+//        id = objConexion.ejecutarInsert(ps.toString());
+        int rpt = ps.executeUpdate();
+        ps.getMoreResults();
+        if (rpt == 1) {
+            System.out.println("insertado");
         }
         objConexion.desconectar();
         return id;
@@ -49,7 +54,27 @@ public class CategoriaDaoSqlServer extends CategoriaDao {
 
     @Override
     public Categoria get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Conexion objConexion = Conexion.getOrCreate();
+            String query = "SELECT idcategoria, nombrecategoria, descripcion FROM tblcategoria WHERE idcategoria = " + id;
+            ResultSet objResultSet = objConexion.ejecutarSelect(query);
+            if (objResultSet.next()) {
+                Categoria obj = new Categoria();
+                int _categoriaId = objResultSet.getInt("idcategoria");
+                obj.setCategoriaId(_categoriaId);
+
+                String _nombrecategoria = objResultSet.getString("nombrecategoria");
+                obj.setNombreCategoria(_nombrecategoria);
+
+                String _descripcion = objResultSet.getString("descripcion");
+                obj.setDescripcion(_descripcion);
+
+                return obj;
+            }
+        } catch (Exception ex) {
+            ;
+        }
+        return null;
     }
 
 }

@@ -28,11 +28,11 @@ public class Inicio extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 858, Short.MAX_VALUE)
+            .addGap(0, 1580, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 439, Short.MAX_VALUE)
+            .addGap(0, 813, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Acerca");
@@ -93,7 +93,7 @@ public class Inicio extends javax.swing.JFrame {
             .addComponent(jDesktopPane1)
         );
 
-        pack();
+        setBounds(0, 0, 1596, 872);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmenucuentacategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenucuentacategoriaActionPerformed
