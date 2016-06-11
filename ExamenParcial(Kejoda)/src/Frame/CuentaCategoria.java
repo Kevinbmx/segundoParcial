@@ -7,12 +7,16 @@ import dto.Categoria;
 import dto.Cuenta;
 import dto.Transaccion;
 import factory.FactoryDao;
+import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class CuentaCategoria extends javax.swing.JInternalFrame {
@@ -24,7 +28,7 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
         initComponents();
         llenarTablacategoria();
         llenarTablacuenta();
-//        llenarCombo();
+        llenarCombo();
     }
 
     @SuppressWarnings("unchecked")
@@ -36,11 +40,9 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        txtnombre = new javax.swing.JTextField();
         txtmonto = new javax.swing.JTextField();
-        txtnombrecuenta = new javax.swing.JTextField();
-        cbnombreusuario = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jDialogcrearCategoria = new javax.swing.JDialog();
@@ -48,10 +50,10 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        txtnombrecuenta1 = new javax.swing.JTextField();
+        txtnombrecategoria = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtdescripcion = new javax.swing.JTextArea();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -69,8 +71,8 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
         btnañadircategoria = new javax.swing.JButton();
         btneditarcategoria = new javax.swing.JButton();
 
-        jDialogCrearcuenta.setPreferredSize(new java.awt.Dimension(400, 340));
-        jDialogCrearcuenta.setSize(new java.awt.Dimension(400, 345));
+        jDialogCrearcuenta.setPreferredSize(new java.awt.Dimension(400, 320));
+        jDialogCrearcuenta.setSize(new java.awt.Dimension(400, 320));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -97,16 +99,7 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Monto");
 
-        jLabel6.setText("Nombre de usuario");
-
         jLabel7.setText("Nombre de Cuenta");
-
-        cbnombreusuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1" }));
-        cbnombreusuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbnombreusuarioActionPerformed(evt);
-            }
-        });
 
         jButton1.setText("Aceptar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -130,45 +123,40 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel6)))
+                            .addComponent(jLabel5)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addComponent(jButton1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtmonto)
-                        .addComponent(txtnombrecuenta)
-                        .addComponent(cbnombreusuario, 0, 109, Short.MAX_VALUE)))
-                .addGap(52, 52, 52))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addGap(86, 86, 86))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtmonto, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                            .addComponent(txtnombre))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtmonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtmonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(12, 12, 12))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addComponent(txtnombrecuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(cbnombreusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jDialogCrearcuentaLayout = new javax.swing.GroupLayout(jDialogCrearcuenta.getContentPane());
@@ -185,15 +173,16 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
         jDialogCrearcuentaLayout.setVerticalGroup(
             jDialogCrearcuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDialogCrearcuentaLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jDialogcrearCategoria.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        jDialogcrearCategoria.setSize(new java.awt.Dimension(500, 400));
+        jDialogcrearCategoria.setPreferredSize(new java.awt.Dimension(500, 350));
+        jDialogcrearCategoria.setSize(new java.awt.Dimension(500, 350));
 
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -222,9 +211,9 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Descripcion");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtdescripcion.setColumns(20);
+        txtdescripcion.setRows(5);
+        jScrollPane1.setViewportView(txtdescripcion);
 
         jButton3.setText("Cancelar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -245,25 +234,21 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel9)))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(86, 86, 86)
-                        .addComponent(jButton4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
-                            .addComponent(txtnombrecuenta1))
-                        .addGap(22, 22, 22))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addGap(84, 84, 84))))
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                    .addComponent(txtnombrecategoria))
+                .addGap(22, 22, 22))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(76, 76, 76)
+                .addComponent(jButton4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addGap(95, 95, 95))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,32 +256,31 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(txtnombrecuenta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtnombrecategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jLabel9))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
                     .addComponent(jButton3))
-                .addContainerGap())
+                .addGap(21, 21, 21))
         );
 
         javax.swing.GroupLayout jDialogcrearCategoriaLayout = new javax.swing.GroupLayout(jDialogcrearCategoria.getContentPane());
         jDialogcrearCategoria.getContentPane().setLayout(jDialogcrearCategoriaLayout);
         jDialogcrearCategoriaLayout.setHorizontalGroup(
             jDialogcrearCategoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDialogcrearCategoriaLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialogcrearCategoriaLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(jDialogcrearCategoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jDialogcrearCategoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 10, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jDialogcrearCategoriaLayout.setVerticalGroup(
             jDialogcrearCategoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,6 +292,11 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         jLabel1.setFont(new java.awt.Font("Source Sans Pro", 3, 36)); // NOI18N
         jLabel1.setText("Cuenta y Categoria");
 
@@ -317,8 +306,8 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(271, 271, 271))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(246, 246, 246))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -390,7 +379,7 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnañadircuenta)
                     .addComponent(btneditarcuenta))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Categoria", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 3, 14))); // NOI18N
@@ -466,10 +455,11 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(8, 8, 8)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 10, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -477,8 +467,9 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -495,13 +486,28 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
 
     private void btnañadircuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnañadircuentaActionPerformed
         jDialogCrearcuenta.setVisible(true);
+        jDialogCrearcuenta.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnañadircuentaActionPerformed
 
     private void btnañadircategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnañadircategoriaActionPerformed
         jDialogcrearCategoria.setVisible(true);
+        jDialogcrearCategoria.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnañadircategoriaActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        try {
+            CategoriaDao objDao = FactoryDao.getFactoryInstance().getNewCategoriaDao();
+            Categoria obj = new Categoria();
+
+            obj.setNombreCategoria((txtnombrecategoria.getText()));
+            obj.setDescripcion(txtdescripcion.getText());
+            objDao.insert(obj);
+            JOptionPane.showMessageDialog(null, "Tu categoria fue insertada");
+
+        } catch (Exception ex) {
+            Logger.getLogger(TransaccionGui.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        llenarTablacategoria();
         jDialogcrearCategoria.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -510,27 +516,30 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+//     System.out.println(cmbidcategoria.getSelectedItem().toString());
+        try {
+            CuentaDao objDao = FactoryDao.getFactoryInstance().getNewCuentaDao();
+            Cuenta obj = new Cuenta();
+
+            obj.setNombreCuenta((txtnombre.getText()));
+            obj.setMonto(Float.valueOf(txtmonto.getText()));
+            obj.setUsuarioId(1);
+            objDao.insert(obj);
+//            JOptionPane.
+            JOptionPane.showMessageDialog(null, "Tu cuenta fue insertada");
+
+        } catch (Exception ex) {
+            Logger.getLogger(TransaccionGui.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        llenarTablacuenta();
         jDialogCrearcuenta.setVisible(false);
-        
-        
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btneditarcategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarcategoriaActionPerformed
         jDialogcrearCategoria.setVisible(true);
     }//GEN-LAST:event_btneditarcategoriaActionPerformed
-
-    private void cbnombreusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbnombreusuarioActionPerformed
-//        try {
-//            String sql = "select distinct dbo.fn_generoid('" + cbgenero.getSelectedItem().toString() + "')as genero  from pelicula";
-//            Statement st = cn.createStatement();
-//            ResultSet rs = st.executeQuery(sql);
-//            while (rs.next()) {
-//                txtgenero.setText(String.valueOf(rs.getInt("genero")));
-//            }
-//        } catch (Exception e) {
-//        }
-    }//GEN-LAST:event_cbnombreusuarioActionPerformed
 
     public void llenarTablacuenta() {
 
@@ -589,16 +598,20 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
 //            System.out.print(e);
 //
 //        }
-        try {
-            objDao = FactoryDao.getFactoryInstance().getNewCategoriaDao();
-            objDao.ListCategoria();
-            for (int i = 0; i < objDao.ListCategoria().size(); i++) {
-                this.cbnombreusuario.addItem(objDao.ListCategoria().get(i).toString());
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
+//
+//      this.cbnombreusuario.removeAllItems();
+//    try {
+//        CuentaDao objDao = FactoryDao.getFactoryInstance().getNewCuentaDao();
+//        List<Cuenta> lista = new ArrayList();
+//        lista = objDao.getList();
+//        for (int i = 0; i <lista.size(); i++) {
+//            String categoria=String.valueOf(lista.get(i).getCuentaId());
+//            cbnombreusuario.addItem(categoria);
+//            //System.out.println("/////"+cuenta);
+//        }
+//    } catch (Exception e) {
+//        System.out.print(e);
+//    }
     }
 
 
@@ -607,7 +620,6 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnañadircuenta;
     private javax.swing.JButton btneditarcategoria;
     private javax.swing.JButton btneditarcuenta;
-    private javax.swing.JComboBox<String> cbnombreusuario;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -620,7 +632,6 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -634,11 +645,11 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTable tblcategoria;
     private javax.swing.JTable tblcuenta;
+    private javax.swing.JTextArea txtdescripcion;
     private javax.swing.JTextField txtmonto;
-    private javax.swing.JTextField txtnombrecuenta;
-    private javax.swing.JTextField txtnombrecuenta1;
+    private javax.swing.JTextField txtnombre;
+    private javax.swing.JTextField txtnombrecategoria;
     // End of variables declaration//GEN-END:variables
 }

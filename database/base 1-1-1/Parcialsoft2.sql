@@ -1,3 +1,4 @@
+use Parcialsoft2
 funcio para encontrar las categorias por id
 
 CREATE FUNCTION [dbo].[fn_categoriaid] (@categoriaid int)

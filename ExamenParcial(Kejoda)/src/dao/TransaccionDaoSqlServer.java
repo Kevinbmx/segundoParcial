@@ -23,7 +23,7 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
         Conexion objConexion = Conexion.getOrCreate();
         int id = 0;
         PreparedStatement ps = objConexion.getObjConnection().prepareStatement("exec InsertarTransaccion ?,?,?,?,?");
-        ps.setInt(1, obj.getMonto());
+        ps.setFloat(1,obj.getMonto());
         ps.setString(2, obj.getFecha());
         ps.setInt(3, obj.getFK_idCategoria());
         ps.setInt(4, obj.getFk_idcuenta());
@@ -52,7 +52,7 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
         ArrayList<Transaccion> registros = new ArrayList<Transaccion>();
         try {
             Conexion objConexion = Conexion.getOrCreate();
-            String query = "exec seleccionarTransaccion";
+            String query = "exec SeleccionarTransaccion";
             ResultSet objResultSet = objConexion.ejecutarSelect(query);
             while (objResultSet.next()) {
 
