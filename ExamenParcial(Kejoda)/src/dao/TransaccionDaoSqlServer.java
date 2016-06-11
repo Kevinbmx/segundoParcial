@@ -82,7 +82,40 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
         }
         return registros;
     }
+ public ArrayList<Transaccion> getListFecha(String fecha) {
+        ArrayList<Transaccion> registros = new ArrayList<Transaccion>();
+        try {
+            Conexion objConexion = Conexion.getOrCreate();
+            String query = "exec buscarTransaccionFecha "+"'"+fecha+"'";
+            ResultSet objResultSet = objConexion.ejecutarSelect(query);
+            while (objResultSet.next()) {
 
+                Transaccion obj = new Transaccion();
+                int _transaccionId = objResultSet.getInt("idtransaccion");
+                obj.setIdTransaccion(_transaccionId);
+
+                int _monto = objResultSet.getInt("monto");
+                obj.setMonto(_monto);
+
+                String _fecha = objResultSet.getString("fecha");
+                obj.setFecha(_fecha);
+
+                int _idcategoria = objResultSet.getInt("idcatergoria");
+                obj.setFK_idCategoria(_idcategoria);
+
+                int _idcuenta = objResultSet.getInt("idcuenta");
+                obj.setFk_idcuenta(_idcuenta);
+
+                String _tipo = objResultSet.getString("tipo");
+                obj.setTipo(_tipo);
+
+                registros.add(obj);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return registros;
+    }
     @Override
     public Transaccion get(int id) {
         try {

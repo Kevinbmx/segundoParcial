@@ -84,10 +84,10 @@ public class CuentaDaoSqlServer extends CuentaDao {
             if (objResultSet.next()) {
                 Cuenta obj = new Cuenta();
                 float _categoriaId;
-                _categoriaId = objResultSet.getInt("idcategoria");
+                _categoriaId = objResultSet.getInt("idcuenta");
                 obj.setMonto(_categoriaId);
 
-                String _nombrecuenta = objResultSet.getString("nombrecategoria");
+                String _nombrecuenta = objResultSet.getString("nombrecuenta");
                 obj.setNombreCuenta(_nombrecuenta);
 
                 int _idusuario = objResultSet.getInt("descripcion");
@@ -120,14 +120,14 @@ public class CuentaDaoSqlServer extends CuentaDao {
     public Cuenta obtenernobbreid(String nombrecuenta) {
         try {
             Conexion objConexion = Conexion.getOrCreate();
-            String query = "select*from [fn_categorianombreid] (" + nombrecuenta + ")";
+            String query = "select*from [fn_cuentanombreid] ('" + nombrecuenta + "')";
             ResultSet objResultSet = objConexion.ejecutarSelect(query);
             if (objResultSet.next()) {
                 Cuenta obj = new Cuenta();
                 int _cuentaId;
-                _cuentaId = objResultSet.getInt("idcategoria");
+                _cuentaId = objResultSet.getInt("idcuenta");
                 obj.setCuentaId(_cuentaId);
-                String _nombrecuenta = objResultSet.getString("nombrecategoria");
+                String _nombrecuenta = objResultSet.getString("nombrecuenta");
                 obj.setNombreCuenta(_nombrecuenta);
                 return obj;
             }

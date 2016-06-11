@@ -21,6 +21,8 @@ public abstract class TransaccionDao {
     public abstract void delete(int id);
 
     public abstract ArrayList<Transaccion> getList();
+    
+    public abstract ArrayList<Transaccion>getListFecha(String fecha);
 
     public abstract Transaccion get(int id);
 }

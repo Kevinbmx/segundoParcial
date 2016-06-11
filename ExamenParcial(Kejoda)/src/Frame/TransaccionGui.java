@@ -220,8 +220,8 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
             obj.setMonto(Float.parseFloat(txtMonto.getText()));
             obj.setFecha(txtfecha.getText());
 
-            obj.setFK_idCategoria(Integer.parseInt(cmbidcategoria.getSelectedItem().toString()));
-            obj.setFk_idcuenta(Integer.parseInt(cmbidcuenta.getSelectedItem().toString()));
+            obj.setFK_idCategoria(Integer.parseInt(labelcategoria.getText()));
+            obj.setFk_idcuenta(Integer.parseInt(labelcuenta.getText()));
             obj.setTipo(cmbtipo.getSelectedItem().toString());
 
             objDao.insert(obj);
@@ -239,8 +239,8 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
        try {
         CategoriaDao objDao = FactoryDao.getFactoryInstance().getNewCategoriaDao();
         Categoria obj=new Categoria();
-        obj=objDao.get(Integer.parseInt(cmbidcategoria.getSelectedItem().toString()));
-        labelcategoria.setText(""+obj.getNombreCategoria());
+        obj=objDao.obtenernombreid(cmbidcategoria.getSelectedItem().toString());
+        labelcategoria.setText(""+obj.getCategoriaId());
        
         
     } catch (Exception e) {
@@ -252,8 +252,8 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
            try {
         CuentaDao objDao = FactoryDao.getFactoryInstance().getNewCuentaDao();
         Cuenta obj=new Cuenta();
-        obj=objDao.get(Integer.parseInt(cmbidcategoria.getSelectedItem().toString()));
-        labelcategoria.setText(""+obj.getCuentaId());
+        obj=objDao.obtenernobbreid(cmbidcuenta.getSelectedItem().toString());
+        labelcuenta.setText(""+obj.getCuentaId());
        
         
     } catch (Exception e) {

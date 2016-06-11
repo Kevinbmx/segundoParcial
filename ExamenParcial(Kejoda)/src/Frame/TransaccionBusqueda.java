@@ -5,6 +5,15 @@
  */
 package Frame;
 
+import dao.CategoriaDao;
+import dao.TransaccionDao;
+import dto.Categoria;
+import dto.Transaccion;
+import factory.FactoryDao;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Uway
@@ -16,6 +25,7 @@ public class TransaccionBusqueda extends javax.swing.JInternalFrame {
      */
     public TransaccionBusqueda() {
         initComponents();
+        llenarcombo();
     }
 
     /**
@@ -27,21 +37,127 @@ public class TransaccionBusqueda extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabla = new javax.swing.JTable();
+        cmbfecha = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        labelfecha = new javax.swing.JLabel();
+
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tabla);
+
+        cmbfecha.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbfecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbfechaActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Exit");
+
+        labelfecha.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(100, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cmbfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(labelfecha)
+                        .addGap(165, 165, 165))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbfecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelfecha))
+                .addGap(32, 32, 32)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(84, 84, 84))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cmbfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbfechaActionPerformed
+        try {
+            
+            
+            mostrarDatos(cmbfecha.getSelectedItem().toString());
+            
 
+        } catch (Exception e) {
+            System.out.print(e);
+        }
+    }//GEN-LAST:event_cmbfechaActionPerformed
+    
+      public void mostrarDatos(String fecha) {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("ID");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("tipo");
+        modelo.addColumn("Monto");
+        tabla.setModel(modelo);
+
+        String[] datos = new String[4];
+        TransaccionDao objDao = FactoryDao.getFactoryInstance().geTransaccionDao();
+        List<Transaccion> lista = new ArrayList();
+        lista = objDao.getListFecha(fecha);
+        for (int i = 0; i < lista.size(); i++) {
+            datos[0] = String.valueOf(lista.get(i).getIdTransaccion());
+            datos[1] = lista.get(i).getFecha();
+            datos[2] = lista.get(i).getTipo();
+            datos[3] = String.valueOf(lista.get(i).getMonto());
+            modelo.addRow(datos);
+        }
+
+        tabla.setModel(modelo);
+    }
+    
+    public void llenarcombo() {
+        cmbfecha.removeAllItems();
+        try {
+            TransaccionDao objDao = FactoryDao.getFactoryInstance().geTransaccionDao();
+            List<Transaccion> lista = new ArrayList();
+            lista = objDao.getList();
+            for (int i = 0; i < lista.size(); i++) {
+                String cuenta = String.valueOf(lista.get(i).getFecha());
+                cmbfecha.addItem(cuenta);
+            }
+        } catch (Exception e) {
+        }
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cmbfecha;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelfecha;
+    private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }

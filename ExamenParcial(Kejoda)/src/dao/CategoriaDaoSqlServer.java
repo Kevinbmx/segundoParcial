@@ -133,7 +133,7 @@ public class CategoriaDaoSqlServer extends CategoriaDao {
     public Categoria obtenernombreid(String nombrecategoria) {
         try {
             Conexion objConexion = Conexion.getOrCreate();
-            String query = "select*from [fn_categorianombreid] (" + nombrecategoria + ")";
+            String query = "select*from [fn_categorianombreid] ('" + nombrecategoria + "')";
             ResultSet objResultSet = objConexion.ejecutarSelect(query);
             if (objResultSet.next()) {
                 Categoria obj = new Categoria();
