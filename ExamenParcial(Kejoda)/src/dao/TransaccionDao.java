@@ -22,7 +22,7 @@ public abstract class TransaccionDao {
 
     public abstract ArrayList<Transaccion> getList();
     
-    public abstract ArrayList<Transaccion>getListFecha(String fecha);
+    public abstract ArrayList<Transaccion>getListFecha(String fecha,int id);
 
     public abstract Transaccion get(int id);
 }

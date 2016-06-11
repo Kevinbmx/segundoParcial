@@ -82,11 +82,11 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
         }
         return registros;
     }
- public ArrayList<Transaccion> getListFecha(String fecha) {
+ public ArrayList<Transaccion> getListFecha(String fecha, int id) {
         ArrayList<Transaccion> registros = new ArrayList<Transaccion>();
         try {
             Conexion objConexion = Conexion.getOrCreate();
-            String query = "exec buscarTransaccionFecha "+"'"+fecha+"'";
+            String query = "exec buscarTransaccionFecha "+"'"+fecha+"',"+id+"";
             ResultSet objResultSet = objConexion.ejecutarSelect(query);
             while (objResultSet.next()) {
 

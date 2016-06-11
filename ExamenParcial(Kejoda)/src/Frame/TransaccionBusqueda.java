@@ -6,8 +6,10 @@
 package Frame;
 
 import dao.CategoriaDao;
+import dao.CuentaDao;
 import dao.TransaccionDao;
 import dto.Categoria;
+import dto.Cuenta;
 import dto.Transaccion;
 import factory.FactoryDao;
 import java.util.ArrayList;
@@ -41,7 +43,7 @@ public class TransaccionBusqueda extends javax.swing.JInternalFrame {
         tabla = new javax.swing.JTable();
         cmbfecha = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        labelfecha = new javax.swing.JLabel();
+        cmbcuenta = new javax.swing.JComboBox<>();
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -65,7 +67,7 @@ public class TransaccionBusqueda extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Exit");
 
-        labelfecha.setText("jLabel2");
+        cmbcuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -74,14 +76,12 @@ public class TransaccionBusqueda extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(100, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cmbfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(labelfecha)
-                        .addGap(165, 165, 165))))
+                        .addGap(132, 132, 132)
+                        .addComponent(cmbcuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(100, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
@@ -95,7 +95,7 @@ public class TransaccionBusqueda extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbfecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelfecha))
+                    .addComponent(cmbcuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(84, 84, 84))
@@ -106,17 +106,15 @@ public class TransaccionBusqueda extends javax.swing.JInternalFrame {
 
     private void cmbfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbfechaActionPerformed
         try {
-            
-            
-            mostrarDatos(cmbfecha.getSelectedItem().toString());
-            
+
+            mostrarDatos(cmbfecha.getSelectedItem().toString(),1);
 
         } catch (Exception e) {
             System.out.print(e);
         }
     }//GEN-LAST:event_cmbfechaActionPerformed
-    
-      public void mostrarDatos(String fecha) {
+
+    public void mostrarDatos(String fecha, int id) {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("ID");
         modelo.addColumn("Fecha");
@@ -127,7 +125,7 @@ public class TransaccionBusqueda extends javax.swing.JInternalFrame {
         String[] datos = new String[4];
         TransaccionDao objDao = FactoryDao.getFactoryInstance().geTransaccionDao();
         List<Transaccion> lista = new ArrayList();
-        lista = objDao.getListFecha(fecha);
+        lista = objDao.getListFecha(fecha,id);
         for (int i = 0; i < lista.size(); i++) {
             datos[0] = String.valueOf(lista.get(i).getIdTransaccion());
             datos[1] = lista.get(i).getFecha();
@@ -138,7 +136,7 @@ public class TransaccionBusqueda extends javax.swing.JInternalFrame {
 
         tabla.setModel(modelo);
     }
-    
+
     public void llenarcombo() {
         cmbfecha.removeAllItems();
         try {
@@ -153,11 +151,25 @@ public class TransaccionBusqueda extends javax.swing.JInternalFrame {
         }
 
     }
+
+    public void llenarcombocuenta() {
+        cmbcuenta.removeAllItems();
+        try {
+            CuentaDao objDao = FactoryDao.getFactoryInstance().getNewCuentaDao();
+            List<Cuenta> lista = new ArrayList();
+            lista = objDao.getList();
+            for (int i = 0; i < lista.size(); i++) {
+                String cuenta = (lista.get(i).getNombreCuenta());
+                cmbcuenta.addItem(cuenta);
+            }
+        } catch (Exception e) {
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cmbcuenta;
     private javax.swing.JComboBox<String> cmbfecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel labelfecha;
     private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }
