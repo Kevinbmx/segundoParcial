@@ -4,7 +4,7 @@ CREATE FUNCTION [dbo].[fn_categoriaid] (@categoriaid int)
 RETURNS table  
 AS
 return(select idcategoria, nombrecategoria, descripcion
-		 FROM tblcategoria
+		 FROM tblCategoria
 		  WHERE idcategoria = @categoriaid
 )
 
