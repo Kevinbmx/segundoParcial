@@ -129,4 +129,26 @@ public class CategoriaDaoSqlServer extends CategoriaDao {
         this.categorias = categorias;
     }
 
+    @Override
+    public Categoria obtenernombreid(String nombrecategoria) {
+        try {
+            Conexion objConexion = Conexion.getOrCreate();
+            String query = "select*from [fn_categorianombreid] (" + nombrecategoria + ")";
+            ResultSet objResultSet = objConexion.ejecutarSelect(query);
+            if (objResultSet.next()) {
+                Categoria obj = new Categoria();
+                int _categoriaId;
+                _categoriaId = objResultSet.getInt("idcategoria");
+                obj.setCategoriaId(_categoriaId);
+                String _nombrecategoria = objResultSet.getString("nombrecategoria");
+                obj.setNombreCategoria(_nombrecategoria);
+                return obj;
+            }
+        } catch (Exception ex) {
+            ;
+        }
+        return null;
+
+    }
+
 }

@@ -23,6 +23,8 @@ public abstract class CuentaDao {
     public abstract ArrayList<Cuenta> getList();
 
     public abstract Cuenta get(int id);
-    
+
     public abstract float montoTotal(Cuenta obj);
+
+    public abstract Cuenta obtenernobbreid(String nombrecuenta);
 }

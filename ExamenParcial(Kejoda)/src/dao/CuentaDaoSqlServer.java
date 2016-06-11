@@ -116,4 +116,25 @@ public class CuentaDaoSqlServer extends CuentaDao {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public Cuenta obtenernobbreid(String nombrecuenta) {
+        try {
+            Conexion objConexion = Conexion.getOrCreate();
+            String query = "select*from [fn_categorianombreid] (" + nombrecuenta + ")";
+            ResultSet objResultSet = objConexion.ejecutarSelect(query);
+            if (objResultSet.next()) {
+                Cuenta obj = new Cuenta();
+                int _cuentaId;
+                _cuentaId = objResultSet.getInt("idcategoria");
+                obj.setCuentaId(_cuentaId);
+                String _nombrecuenta = objResultSet.getString("nombrecategoria");
+                obj.setNombreCuenta(_nombrecuenta);
+                return obj;
+            }
+        } catch (Exception ex) {
+            ;
+        }
+        return null;
+    }
+
 }
