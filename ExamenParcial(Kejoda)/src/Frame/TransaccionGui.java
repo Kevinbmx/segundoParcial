@@ -198,7 +198,7 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
         try {
             TransaccionDao objDao = FactoryDao.getFactoryInstance().geTransaccionDao();
             Transaccion obj = new Transaccion();
-            obj.setMonto(Integer.parseInt(txtMonto.getText()));
+            obj.setMonto(Float.parseFloat(txtMonto.getText()));
             obj.setFecha(txtfecha.getText());
 
             obj.setFK_idCategoria(Integer.parseInt(cmbidcategoria.getSelectedItem().toString()));

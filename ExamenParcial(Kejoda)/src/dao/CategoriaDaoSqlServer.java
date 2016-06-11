@@ -31,7 +31,6 @@ public class CategoriaDaoSqlServer extends CategoriaDao {
         PreparedStatement ps = objConexion.getObjConnection().prepareStatement("exec insertarcategoria ?,?");
         ps.setString(1, obj.getNombreCategoria());
         ps.setString(2, obj.getDescripcion());
-//        id = objConexion.ejecutarInsert(ps.toString());
         int rpt = ps.executeUpdate();
         ps.getMoreResults();
         if (rpt == 1) {

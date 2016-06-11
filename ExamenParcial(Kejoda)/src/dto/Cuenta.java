@@ -4,8 +4,9 @@ public class Cuenta {
 
     private int CuentaId;
     private String nombreCuenta;
-    private int monto;
+    private float monto;
     private int usuarioId;
+    private float montoTotal;
 
     public Cuenta() {
         ;
@@ -19,11 +20,11 @@ public class Cuenta {
         this.CuentaId = CuentaId;
     }
 
-    public int getMonto() {
+    public float getMonto() {
         return monto;
     }
 
-    public void setMonto(int monto) {
+    public void setMonto(float monto) {
         this.monto = monto;
     }
 
@@ -43,5 +44,14 @@ public class Cuenta {
         this.nombreCuenta = nombreUsuario;
     }
 
+    public float getMontoTotal() {
+        return montoTotal;
+    }
+
+    public void setMontoTotal(float montoTotal) {
+        this.montoTotal = montoTotal;
+    }
+
+    
     
 }

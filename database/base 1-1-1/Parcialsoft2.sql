@@ -1,10 +1,11 @@
+use Parcialsoft2
 funcio para encontrar las categorias por id
 
 CREATE FUNCTION [dbo].[fn_categoriaid] (@categoriaid int)
 RETURNS table  
 AS
 return(select idcategoria, nombrecategoria, descripcion
-		 FROM tblcategoria
+		 FROM tblCategoria
 		  WHERE idcategoria = @categoriaid
 )
 

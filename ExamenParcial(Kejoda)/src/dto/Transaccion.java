@@ -8,7 +8,7 @@ package dto;
 public class Transaccion {
 
     private int idTransaccion;
-    private int monto;
+    private float monto;
     private String Fecha;
     private int FK_idCategoria;
     private int Fk_idcuenta;
@@ -25,11 +25,11 @@ public class Transaccion {
         this.idTransaccion = idTransaccion;
     }
 
-    public int getMonto() {
+    public float getMonto() {
         return monto;
     }
 
-    public void setMonto(int monto) {
+    public void setMonto(float monto) {
         this.monto = monto;
     }
 

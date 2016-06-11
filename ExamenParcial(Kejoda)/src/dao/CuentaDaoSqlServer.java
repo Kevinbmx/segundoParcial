@@ -8,6 +8,7 @@ package dao;
 import dal.Conexion;
 import dto.Categoria;
 import dto.Cuenta;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -18,10 +19,23 @@ import java.util.ArrayList;
 public class CuentaDaoSqlServer extends CuentaDao {
 
     ArrayList<Cuenta> cuenta;
+    private float montototal;
 
     @Override
     public int insert(Cuenta obj) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Conexion objConexion = Conexion.getOrCreate();
+        int id = 0;
+        PreparedStatement ps = objConexion.getObjConnection().prepareStatement("exec insertarcuentas ?,?,?");
+        ps.setFloat(1, obj.getMonto());
+        ps.setString(2, obj.getNombreCuenta());
+        ps.setInt(3, obj.getUsuarioId());
+        int rpt = ps.executeUpdate();
+        ps.getMoreResults();
+        if (rpt == 1) {
+            System.out.println("insertado");
+        }
+        objConexion.desconectar();
+        return id;
     }
 
     @Override
@@ -63,6 +77,42 @@ public class CuentaDaoSqlServer extends CuentaDao {
 
     @Override
     public Cuenta get(int id) {
+         try {
+            Conexion objConexion = Conexion.getOrCreate();
+            String query = "select*from [fn_cuentaid] (" + id + ")";
+            ResultSet objResultSet = objConexion.ejecutarSelect(query);
+            if (objResultSet.next()) {
+                Cuenta obj = new Cuenta();
+                float _categoriaId;
+                _categoriaId = objResultSet.getInt("idcategoria");
+                obj.setMonto(_categoriaId);
+
+                String _nombrecuenta = objResultSet.getString("nombrecategoria");
+                obj.setNombreCuenta(_nombrecuenta);
+
+                int _idusuario = objResultSet.getInt("descripcion");
+                obj.setUsuarioId(_idusuario);
+
+                return obj;
+            }
+        } catch (Exception ex) {
+            ;
+        }
+        return null;
+    }
+
+
+
+    public float getMontototal() {
+        return montototal;
+    }
+
+    public void setMontototal(float montototal) {
+        this.montototal = montototal;
+    }
+
+    @Override
+    public float montoTotal(Cuenta obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
