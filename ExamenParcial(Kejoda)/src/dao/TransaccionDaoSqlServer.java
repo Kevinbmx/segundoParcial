@@ -11,6 +11,7 @@ import dto.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,12 +23,13 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
 
         Conexion objConexion = Conexion.getOrCreate();
         int id = 0;
-        PreparedStatement ps = objConexion.getObjConnection().prepareStatement("exec InsertarTransaccion ?,?,?,?,?");
+        PreparedStatement ps = objConexion.getObjConnection().prepareStatement("exec InsertarTransaccion ?,?,?,?,?,?");
         ps.setFloat(1,obj.getMonto());
         ps.setString(2, obj.getFecha());
         ps.setInt(3, obj.getFK_idCategoria());
         ps.setInt(4, obj.getFk_idcuenta());
         ps.setString(5, obj.getTipo());
+        ps.setString(6,obj.getHora());
         int rpt = ps.executeUpdate();
         ps.getMoreResults();
         if (rpt == 1) {
@@ -39,8 +41,22 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
 
     @Override
     public void update(Transaccion obj) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    Conexion objConexion = Conexion.getOrCreate();
+        PreparedStatement ps = objConexion.getObjConnection().prepareStatement("EXEC [actualizarTransaccion] ?,?,?,?,?,?,?");
+        ps.setInt(1, obj.getIdTransaccion());
+        ps.setString(2, obj.getFecha());
+        ps.setString(3, obj.getHora());
+        ps.setString(4, obj.getTipo());
+        ps.setFloat(5, obj.getMonto());
+        ps.setInt(6, obj.getFk_idcuenta());
+        ps.setInt(7, obj.getFK_idCategoria());
+        int rpt = ps.executeUpdate();
+        ps.getMoreResults();
+        if (rpt == 1) {
+            JOptionPane.showMessageDialog(null, "Tu cuenta fue editada");
+            System.out.println("editado");
+        }
+        objConexion.desconectar(); }
 
     @Override
     public void delete(int id) {
@@ -74,6 +90,9 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
 
                 String _tipo = objResultSet.getString("tipo");
                 obj.setTipo(_tipo);
+                
+                 String _hora = objResultSet.getString("hora");
+                obj.setHora(_hora);
 
                 registros.add(obj);
             }
@@ -108,6 +127,9 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
 
                 String _tipo = objResultSet.getString("tipo");
                 obj.setTipo(_tipo);
+                
+                 String _hora = objResultSet.getString("hora");
+                obj.setHora(_hora);
 
                 registros.add(obj);
             }
@@ -142,6 +164,9 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
 
                 String _tipo = objResultSet.getString("tipo");
                 obj.setTipo(_tipo);
+                
+                 String _hora = objResultSet.getString("hora");
+                obj.setHora(_hora);
                 return obj;
             }
         } catch (Exception ex) {

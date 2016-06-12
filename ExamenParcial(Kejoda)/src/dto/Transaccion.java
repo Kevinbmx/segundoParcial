@@ -13,6 +13,7 @@ public class Transaccion {
     private int FK_idCategoria;
     private int Fk_idcuenta;
     private String tipo;
+    private String hora;
 
     public Transaccion() {
     }
@@ -63,6 +64,14 @@ public class Transaccion {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
     }
     
     

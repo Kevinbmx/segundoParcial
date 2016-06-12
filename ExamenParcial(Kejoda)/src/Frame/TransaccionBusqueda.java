@@ -149,8 +149,8 @@ public class TransaccionBusqueda extends javax.swing.JInternalFrame {
 
     public void mostrarDatos(String fecha, int id) {
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("ID");
-        modelo.addColumn("Fecha");
+        
+        modelo.addColumn("Hora");
         modelo.addColumn("tipo");
         modelo.addColumn("Monto");
         tabla.setModel(modelo);
@@ -160,10 +160,10 @@ public class TransaccionBusqueda extends javax.swing.JInternalFrame {
         List<Transaccion> lista = new ArrayList();
         lista = objDao.getListFecha(fecha,id);
         for (int i = 0; i < lista.size(); i++) {
-            datos[0] = String.valueOf(lista.get(i).getIdTransaccion());
-            datos[1] = lista.get(i).getFecha();
-            datos[2] = lista.get(i).getTipo();
-            datos[3] = String.valueOf(lista.get(i).getMonto());
+          
+            datos[0] = lista.get(i).getHora();
+            datos[1] = lista.get(i).getTipo();
+            datos[2] = String.valueOf(lista.get(i).getMonto());
             modelo.addRow(datos);
         }
 
