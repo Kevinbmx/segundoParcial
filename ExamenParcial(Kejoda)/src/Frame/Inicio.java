@@ -71,13 +71,13 @@ public class Inicio extends javax.swing.JFrame {
         tblcuentas = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jmenucuentacategoria = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jmenucreartransferencia = new javax.swing.JMenuItem();
-        jmenulistaTranferencia = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jmenucreartransaccion = new javax.swing.JMenuItem();
         jmenulistatransaccion = new javax.swing.JMenuItem();
@@ -354,10 +354,6 @@ public class Inicio extends javax.swing.JFrame {
 
         jLabel8.setText("Telefono");
 
-        labeltelefono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        labelnombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
         btnañadircuenta.setText("Añadir");
         btnañadircuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -393,6 +389,13 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
+        jButton7.setIcon(new javax.swing.ImageIcon("C:\\Disco A\\universidad\\Universidad Nur\\software 3\\segundo examen parcial(kejoda)\\ExamenParcial(Kejoda)\\src\\actualizar.png")); // NOI18N
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -409,12 +412,9 @@ public class Inicio extends javax.swing.JFrame {
                         .addGap(26, 26, 26)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnañadircuenta)
-                                .addGap(32, 32, 32)
-                                .addComponent(jButton3)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton4))
-                            .addComponent(jLabel5)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -424,11 +424,17 @@ public class Inicio extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(labeltelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
                                     .addComponent(labelnombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnañadircuenta)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton3)
+                                .addGap(26, 26, 26)
+                                .addComponent(jButton4))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(107, 107, 107)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -439,7 +445,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addGap(48, 48, 48)
+                .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6)
                     .addComponent(labelnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -449,16 +455,19 @@ public class Inicio extends javax.swing.JFrame {
                     .addComponent(labeltelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(jLabel5)
-                .addGap(17, 17, 17)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnañadircuenta)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
-                .addContainerGap(320, Short.MAX_VALUE))
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(20, 20, 20)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton4)
+                            .addComponent(jButton3)
+                            .addComponent(btnañadircuenta)))
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(307, Short.MAX_VALUE))
         );
 
         jDesktopPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -469,7 +478,7 @@ public class Inicio extends javax.swing.JFrame {
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1621, Short.MAX_VALUE))
+                .addGap(0, 1624, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -493,16 +502,13 @@ public class Inicio extends javax.swing.JFrame {
 
         jMenu3.setText("Transferencia");
 
-        jmenucreartransferencia.setText("Crear transferencia");
+        jmenucreartransferencia.setText("Listas de transferencia");
         jmenucreartransferencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmenucreartransferenciaActionPerformed(evt);
             }
         });
         jMenu3.add(jmenucreartransferencia);
-
-        jmenulistaTranferencia.setText("Transferencia");
-        jMenu3.add(jmenulistaTranferencia);
 
         jMenuBar1.add(jMenu3);
 
@@ -558,7 +564,15 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jmenucuentacategoriaActionPerformed
 
     private void jmenucreartransferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenucreartransferenciaActionPerformed
-        // TODO add your handling code here:
+        try {
+            TransferenciaGUI TT = new TransferenciaGUI();
+            Dimension desktopSize = jDesktopPane1.getSize();
+            Dimension FrameSize = TT.getSize();
+            jDesktopPane1.add(TT);
+            TT.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+            TT.show();
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_jmenucreartransferenciaActionPerformed
 
     private void jmenucreartransaccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenucreartransaccionActionPerformed
@@ -582,6 +596,8 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jmenulistatransaccionActionPerformed
 
     private void btnañadircuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnañadircuentaActionPerformed
+        llenarTablacuenta();
+        llenarTablaTotal();
         jDialogCrearcuenta.setVisible(true);
         jDialogCrearcuenta.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnañadircuentaActionPerformed
@@ -596,7 +612,9 @@ public class Inicio extends javax.swing.JFrame {
             obj.setUsuarioId(1);
             objDao.insert(obj);
             JOptionPane.showMessageDialog(null, "Tu cuenta fue insertada");
+            vaciarcamposcrear();
         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Tu cuenta no fue insertada");
             Logger.getLogger(TransaccionGui.class.getName()).log(Level.SEVERE, null, ex);
         }
         llenarTablacuenta();
@@ -622,6 +640,7 @@ public class Inicio extends javax.swing.JFrame {
 
             objDao.update(obj);
             System.out.println("entro");
+            vaciarcamposeditar();
             llenarTablacuenta();
             llenarTablaTotal();
         } catch (Exception ex) {
@@ -631,44 +650,59 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        jDialogEditarcuenta.setVisible(false);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        int fila = tblcuentas.getSelectedRow();
-        if (fila < 0) {
-            JOptionPane.showMessageDialog(null, "seleccione una fila para poder editar");
-        } else {
-            Cuenta obj = new Cuenta();
-            CuentaDao objDao = FactoryDao.getFactoryInstance().getNewCuentaDao();
-            idetabla = (String) tblcuentas.getValueAt(fila, 0).toString();
-            int id = Integer.parseInt(idetabla);
-            System.out.println(idetabla);
-            System.out.println(id);
-            obj = objDao.get(id);
-            txtnumid.setText(obj.getCuentaId() + "");
-            txtnombreeditar.setText(obj.getNombreCuenta());
-            txtmontoeditar.setText(obj.getMonto() + "");
-            jDialogEditarcuenta.setVisible(true);
+
+        try {
+            int fila = tblcuentas.getSelectedRow();
+            if (fila < 0) {
+                JOptionPane.showMessageDialog(null, "seleccione una fila para poder editar");
+            } else {
+
+                Cuenta obj = new Cuenta();
+                CuentaDao objDao = FactoryDao.getFactoryInstance().getNewCuentaDao();
+                idetabla = (String) tblcuentas.getValueAt(fila, 0).toString();
+                int id = Integer.parseInt(idetabla);
+                System.out.println(idetabla);
+                System.out.println(id);
+                obj = objDao.get(id);
+                txtnumid.setText(obj.getCuentaId() + "");
+                txtnombreeditar.setText(obj.getNombreCuenta());
+                txtmontoeditar.setText(obj.getMonto() + "");
+                jDialogEditarcuenta.setVisible(true);
+                jDialogEditarcuenta.setLocationRelativeTo(null);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "no ha sido editado su cuenta");
         }
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        int fila = tblcuentas.getSelectedRow();
-        if (fila < 0) {
-            JOptionPane.showMessageDialog(null, "seleccione una fila para poder eliminar");
-        } else {
-            CuentaDao objDao = FactoryDao.getFactoryInstance().getNewCuentaDao();
-            idetabla = (String) tblcuentas.getValueAt(fila, 0).toString();
-            int id = Integer.parseInt(idetabla);
-            JOptionPane.showMessageDialog(null, "estas seguro que quieres eliminar una cuenta");
-            objDao.delete(id);
-            llenarTablacuenta();
-            llenarTablaTotal();
 
+        try {
+            int fila = tblcuentas.getSelectedRow();
+            if (fila < 0) {
+                JOptionPane.showMessageDialog(null, "seleccione una fila para poder eliminar");
+            } else {
+                CuentaDao objDao = FactoryDao.getFactoryInstance().getNewCuentaDao();
+                idetabla = (String) tblcuentas.getValueAt(fila, 0).toString();
+                int id = Integer.parseInt(idetabla);
+                JOptionPane.showMessageDialog(null, "estas seguro que quieres eliminar una cuenta");
+                objDao.delete(id);
+                llenarTablacuenta();
+                llenarTablaTotal();
+            }
+        } catch (Exception e) {
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        llenarTablaTotal();
+        llenarTablacuenta();
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -743,8 +777,14 @@ public class Inicio extends javax.swing.JFrame {
         labeltelefono.setText(lista.get(0).getTelefono());
     }
 
-    public void llenartxteditarcuenta() {
+    public void vaciarcamposcrear() {
+        txtnombre.setText("");
+        txtmonto.setText("");
+    }
 
+    public void vaciarcamposeditar() {
+        txtnombreeditar.setText("");
+        txtmontoeditar.setText("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -755,6 +795,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JDialog jDialogCrearcuenta;
     private javax.swing.JDialog jDialogEditarcuenta;
@@ -787,7 +828,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmenucreartransaccion;
     private javax.swing.JMenuItem jmenucreartransferencia;
     private javax.swing.JMenuItem jmenucuentacategoria;
-    private javax.swing.JMenuItem jmenulistaTranferencia;
     private javax.swing.JMenuItem jmenulistatransaccion;
     private javax.swing.JLabel labelnombre;
     private javax.swing.JLabel labeltelefono;

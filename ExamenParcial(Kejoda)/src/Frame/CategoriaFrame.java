@@ -445,6 +445,7 @@ public class CategoriaFrame extends javax.swing.JInternalFrame {
             txtnombrecategoriaeditar.setText(obj.getNombreCategoria());
             txtdescripcioneditar.setText(obj.getDescripcion() + "");
             jDialogeditarCategoria.setVisible(true);
+            jDialogeditarCategoria.setLocationRelativeTo(null);
 
         }
     }//GEN-LAST:event_btneditarcategoriaActionPerformed
@@ -462,7 +463,7 @@ public class CategoriaFrame extends javax.swing.JInternalFrame {
             obj.setDescripcion(txtdescripcion.getText());
             objDao.insert(obj);
             JOptionPane.showMessageDialog(null, "Tu categoria fue insertada");
-
+            vaciarcamposcrear();
         } catch (Exception ex) {
             Logger.getLogger(TransaccionGui.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -471,7 +472,7 @@ public class CategoriaFrame extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        jDialogeditarCategoria.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -486,6 +487,7 @@ public class CategoriaFrame extends javax.swing.JInternalFrame {
             objDao.update(obj);
             System.out.println("entro");
             llenarTablacategoria();
+            vaciarcamposeditar();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "No se actualizar la categoria");
         }
@@ -499,7 +501,7 @@ public class CategoriaFrame extends javax.swing.JInternalFrame {
             CategoriaDao objDao = FactoryDao.getFactoryInstance().getNewCategoriaDao();
             idetabla = (String) tblcategoria.getValueAt(fila, 0).toString();
             int id = Integer.parseInt(idetabla);
-            JOptionPane.showMessageDialog(null, "estas seguro que quieres eliminar una cuenta");
+            JOptionPane.showMessageDialog(null, "estas seguro que quieres eliminar una categoria");
             objDao.delete(id);
             llenarTablacategoria();
 
@@ -528,6 +530,15 @@ public class CategoriaFrame extends javax.swing.JInternalFrame {
         tblcategoria.setModel(modelo);
     }
 
+    public void vaciarcamposcrear() {
+        txtnombrecategoria.setText("");
+        txtdescripcion.setText("");
+    }
+
+    public void vaciarcamposeditar() {
+        txtnombrecategoriaeditar.setText("");
+        txtdescripcioneditar.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnañadircategoria;

@@ -24,12 +24,12 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
         Conexion objConexion = Conexion.getOrCreate();
         int id = 0;
         PreparedStatement ps = objConexion.getObjConnection().prepareStatement("exec InsertarTransaccion ?,?,?,?,?,?");
-        ps.setFloat(1,obj.getMonto());
+        ps.setFloat(1, obj.getMonto());
         ps.setString(2, obj.getFecha());
         ps.setInt(3, obj.getFK_idCategoria());
         ps.setInt(4, obj.getFk_idcuenta());
         ps.setString(5, obj.getTipo());
-        ps.setString(6,obj.getHora());
+        ps.setString(6, obj.getHora());
         int rpt = ps.executeUpdate();
         ps.getMoreResults();
         if (rpt == 1) {
@@ -41,7 +41,7 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
 
     @Override
     public void update(Transaccion obj) throws Exception {
-    Conexion objConexion = Conexion.getOrCreate();
+        Conexion objConexion = Conexion.getOrCreate();
         PreparedStatement ps = objConexion.getObjConnection().prepareStatement("EXEC [actualizarTransaccion] ?,?,?,?,?,?,?");
         ps.setInt(1, obj.getIdTransaccion());
         ps.setString(2, obj.getFecha());
@@ -56,7 +56,8 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
             JOptionPane.showMessageDialog(null, "Tu cuenta fue editada");
             System.out.println("editado");
         }
-        objConexion.desconectar(); }
+        objConexion.desconectar();
+    }
 
     @Override
     public void delete(int id) {
@@ -90,8 +91,8 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
 
                 String _tipo = objResultSet.getString("tipo");
                 obj.setTipo(_tipo);
-                
-                 String _hora = objResultSet.getString("hora");
+
+                String _hora = objResultSet.getString("hora");
                 obj.setHora(_hora);
 
                 registros.add(obj);
@@ -101,11 +102,11 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
         }
         return registros;
     }
- public ArrayList<Transaccion> getListFecha(String fecha, int id) {
+    public ArrayList<Transaccion> getListFecha(String fecha, int id) {
         ArrayList<Transaccion> registros = new ArrayList<Transaccion>();
         try {
             Conexion objConexion = Conexion.getOrCreate();
-            String query = "exec buscarTransaccionFecha "+"'"+fecha+"',"+id+"";
+            String query = "exec buscarTransaccionFecha " + "'" + fecha + "'," + id + "";
             ResultSet objResultSet = objConexion.ejecutarSelect(query);
             while (objResultSet.next()) {
 
@@ -127,8 +128,8 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
 
                 String _tipo = objResultSet.getString("tipo");
                 obj.setTipo(_tipo);
-                
-                 String _hora = objResultSet.getString("hora");
+
+                String _hora = objResultSet.getString("hora");
                 obj.setHora(_hora);
 
                 registros.add(obj);
@@ -138,6 +139,7 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
         }
         return registros;
     }
+
     @Override
     public Transaccion get(int id) {
         try {
@@ -164,8 +166,8 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
 
                 String _tipo = objResultSet.getString("tipo");
                 obj.setTipo(_tipo);
-                
-                 String _hora = objResultSet.getString("hora");
+
+                String _hora = objResultSet.getString("hora");
                 obj.setHora(_hora);
                 return obj;
             }

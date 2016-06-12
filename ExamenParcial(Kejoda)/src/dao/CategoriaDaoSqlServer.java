@@ -43,7 +43,7 @@ public class CategoriaDaoSqlServer extends CategoriaDao {
 
     @Override
     public void update(Categoria obj) throws Exception {
-       Conexion objConexion = Conexion.getOrCreate();
+        Conexion objConexion = Conexion.getOrCreate();
         PreparedStatement ps = objConexion.getObjConnection().prepareStatement("EXEC [actualizarcategoria] ?,?,?");
         ps.setInt(1, obj.getCategoriaId());
         ps.setString(2, obj.getNombreCategoria());
@@ -59,22 +59,22 @@ public class CategoriaDaoSqlServer extends CategoriaDao {
 
     @Override
     public void delete(int id) {
-              try {
+        try {
             Conexion objConexion = Conexion.getOrCreate();
             PreparedStatement ps = objConexion.getObjConnection().prepareStatement("EXEC [eliminarcategoria] ?");
             ps.setInt(1, id);
             int rpt = ps.executeUpdate();
             ps.getMoreResults();
             if (rpt == 1) {
-                JOptionPane.showMessageDialog(null, "Tu cuenta fue eliminada");
+                JOptionPane.showMessageDialog(null, "Tu categoria fue eliminada");
                 System.out.println("eliminado");
-            } else if (rpt==0) {
-                System.out.println("no eliminado");
-                JOptionPane.showMessageDialog(null, "Tu cuenta no pudo ser eliminada /n"
-                        + "puede estar utilizasa por una transferencia o transaccion");
-                objConexion.desconectar();
             }
+            System.out.println("no eliminado");
+
+            objConexion.desconectar();
+
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Tu categoria no puede ser eliminada por que esta siendo utilizada por alguna transaccion");
         }
     }
 
