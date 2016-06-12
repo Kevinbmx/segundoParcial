@@ -28,6 +28,7 @@ public class TransaccionBusqueda extends javax.swing.JInternalFrame {
     public TransaccionBusqueda() {
         initComponents();
         llenarcombo();
+        llenarcombocuenta();
     }
 
     /**
@@ -44,30 +45,43 @@ public class TransaccionBusqueda extends javax.swing.JInternalFrame {
         cmbfecha = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         cmbcuenta = new javax.swing.JComboBox<>();
+        btnbuscar = new javax.swing.JButton();
+        labelcuenta = new javax.swing.JLabel();
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane1.setViewportView(tabla);
 
         cmbfecha.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbfecha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbfechaActionPerformed(evt);
+
+        jLabel1.setText("Exit");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
             }
         });
 
-        jLabel1.setText("Exit");
-
         cmbcuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbcuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbcuentaActionPerformed(evt);
+            }
+        });
+
+        btnbuscar.setText("Buscar");
+        btnbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbuscarActionPerformed(evt);
+            }
+        });
+
+        labelcuenta.setText(".");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -76,15 +90,19 @@ public class TransaccionBusqueda extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnbuscar)
+                        .addGap(63, 63, 63)
+                        .addComponent(labelcuenta))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cmbfecha, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(132, 132, 132)
+                        .addGap(83, 83, 83)
                         .addComponent(cmbcuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(100, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
@@ -92,27 +110,42 @@ public class TransaccionBusqueda extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbfecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbcuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(84, 84, 84))
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnbuscar)
+                    .addComponent(labelcuenta))
+                .addGap(25, 25, 25))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cmbfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbfechaActionPerformed
-        try {
+    private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
+        mostrarDatos(cmbfecha.getSelectedItem().toString(), Integer.parseInt(labelcuenta.getText()));
+    }//GEN-LAST:event_btnbuscarActionPerformed
 
-            mostrarDatos(cmbfecha.getSelectedItem().toString(),1);
+    private void cmbcuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbcuentaActionPerformed
+              try {
+        CuentaDao objDao = FactoryDao.getFactoryInstance().getNewCuentaDao();
+        Cuenta obj=new Cuenta();
+        obj=objDao.obtenernobbreid(cmbcuenta.getSelectedItem().toString());
+        labelcuenta.setText(""+obj.getCuentaId());
+       
+        
+    } catch (Exception e) {
+        System.out.print(e);
+    }
+    }//GEN-LAST:event_cmbcuentaActionPerformed
 
-        } catch (Exception e) {
-            System.out.print(e);
-        }
-    }//GEN-LAST:event_cmbfechaActionPerformed
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+       dispose();
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     public void mostrarDatos(String fecha, int id) {
         DefaultTableModel modelo = new DefaultTableModel();
@@ -166,10 +199,12 @@ public class TransaccionBusqueda extends javax.swing.JInternalFrame {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnbuscar;
     private javax.swing.JComboBox<String> cmbcuenta;
     private javax.swing.JComboBox<String> cmbfecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelcuenta;
     private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }
