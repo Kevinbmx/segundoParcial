@@ -51,6 +51,7 @@ public class TransaccionBusqueda extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
+        setTitle("Transaccion");
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
