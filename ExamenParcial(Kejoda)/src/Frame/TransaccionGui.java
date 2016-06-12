@@ -82,6 +82,10 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
         });
         jPopupMenu1.add(actualizar);
 
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         jLabel1.setText("Monto");
 
         jLabel2.setText("Fecha");
