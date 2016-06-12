@@ -34,4 +34,9 @@ class FactoryDaoSQLServer extends FactoryDao {
         return new TransaccionDaoSqlServer();
     }
 
+    @Override
+    public TransferenciaDao geTransferenciaDao() {
+        return new TransferenciaDaoSqlServer();
+    }
+
 }
