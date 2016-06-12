@@ -739,8 +739,8 @@ public class Inicio extends javax.swing.JFrame {
         UsuarioDao objDao = FactoryDao.getFactoryInstance().getNewUsuarioDao();
         List<Usuario> lista = new ArrayList();
         lista = objDao.getList();
-        labelnombre.setText(lista.get(1).getNombre());
-        labeltelefono.setText(lista.get(1).getTelefono());
+        labelnombre.setText(lista.get(0).getNombre());
+        labeltelefono.setText(lista.get(0).getTelefono());
     }
 
     public void llenartxteditarcuenta() {
