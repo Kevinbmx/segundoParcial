@@ -61,7 +61,6 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
         btnInsertar = new javax.swing.JButton();
         cmbidcategoria = new javax.swing.JComboBox<>();
         cmbidcuenta = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         labelcategoria = new javax.swing.JLabel();
@@ -82,6 +81,7 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
         });
         jPopupMenu1.add(actualizar);
 
+        setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
@@ -126,13 +126,6 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
         cmbidcuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbidcuentaActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setText("EXIT");
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel4MouseClicked(evt);
             }
         });
 
@@ -209,17 +202,11 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(cmbAmPm, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addContainerGap(25, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addGap(2, 2, 2)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -285,10 +272,6 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
         }
         mostrarDatos();
     }//GEN-LAST:event_btnInsertarActionPerformed
-
-    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        dispose();
-    }//GEN-LAST:event_jLabel4MouseClicked
 
     private void cmbidcategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbidcategoriaActionPerformed
         try {
@@ -433,7 +416,6 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

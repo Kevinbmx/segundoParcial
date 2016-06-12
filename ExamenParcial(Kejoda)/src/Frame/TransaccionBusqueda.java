@@ -43,10 +43,14 @@ public class TransaccionBusqueda extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
         cmbfecha = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
         cmbcuenta = new javax.swing.JComboBox<>();
         btnbuscar = new javax.swing.JButton();
         labelcuenta = new javax.swing.JLabel();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -59,13 +63,6 @@ public class TransaccionBusqueda extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tabla);
 
         cmbfecha.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel1.setText("Exit");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
-            }
-        });
 
         cmbcuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbcuenta.addActionListener(new java.awt.event.ActionListener() {
@@ -100,17 +97,11 @@ public class TransaccionBusqueda extends javax.swing.JInternalFrame {
                         .addGap(83, 83, 83)
                         .addComponent(cmbcuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(100, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 12, Short.MAX_VALUE)
+                .addContainerGap(41, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbfecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbcuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -142,10 +133,6 @@ public class TransaccionBusqueda extends javax.swing.JInternalFrame {
         System.out.print(e);
     }
     }//GEN-LAST:event_cmbcuentaActionPerformed
-
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-       dispose();
-    }//GEN-LAST:event_jLabel1MouseClicked
 
     public void mostrarDatos(String fecha, int id) {
         DefaultTableModel modelo = new DefaultTableModel();
@@ -202,7 +189,6 @@ public class TransaccionBusqueda extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnbuscar;
     private javax.swing.JComboBox<String> cmbcuenta;
     private javax.swing.JComboBox<String> cmbfecha;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelcuenta;
     private javax.swing.JTable tabla;
