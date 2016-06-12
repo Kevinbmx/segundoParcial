@@ -10,7 +10,9 @@ import dto.Categoria;
 import dto.Cuenta;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -40,12 +42,36 @@ public class CuentaDaoSqlServer extends CuentaDao {
 
     @Override
     public void update(Cuenta obj) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Conexion objConexion = Conexion.getOrCreate();
+        PreparedStatement ps = objConexion.getObjConnection().prepareStatement("EXEC [actualizarcuenta] ?,?,?,?");
+        ps.setInt(1, obj.getCuentaId());
+        ps.setFloat(2, obj.getMonto());
+        ps.setString(3, obj.getNombreCuenta());
+        ps.setInt(4, obj.getUsuarioId());
+        int rpt = ps.executeUpdate();
+        ps.getMoreResults();
+        if (rpt == 1) {
+            JOptionPane.showMessageDialog(null, "Tu cuenta fue editada");
+            System.out.println("editado");
+        }
+        objConexion.desconectar();
     }
 
     @Override
     public void delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Conexion objConexion = Conexion.getOrCreate();
+            PreparedStatement ps = objConexion.getObjConnection().prepareStatement("EXEC [eliminarcuenta] ?");
+            ps.setInt(1, id);
+            int rpt = ps.executeUpdate();
+            ps.getMoreResults();
+            if (rpt == 1) {
+                JOptionPane.showMessageDialog(null, "Tu cuenta fue eliminada");
+                System.out.println("editado");
+            }
+            objConexion.desconectar();
+        } catch (SQLException ex) {
+        }
     }
 
     @Override
@@ -77,22 +103,24 @@ public class CuentaDaoSqlServer extends CuentaDao {
 
     @Override
     public Cuenta get(int id) {
-         try {
+        try {
             Conexion objConexion = Conexion.getOrCreate();
-            String query = "select*from [fn_cuentaid] (" + id + ")";
+            String query = "select*from [fn_cuentaid](" + id + ")";
             ResultSet objResultSet = objConexion.ejecutarSelect(query);
             if (objResultSet.next()) {
                 Cuenta obj = new Cuenta();
-                float _categoriaId;
-                _categoriaId = objResultSet.getInt("idcuenta");
-                obj.setMonto(_categoriaId);
+                int _cuentaId;
+                _cuentaId = objResultSet.getInt("idcuenta");
+                obj.setCuentaId(_cuentaId);
 
-                String _nombrecuenta = objResultSet.getString("nombrecuenta");
-                obj.setNombreCuenta(_nombrecuenta);
+                float _monto = objResultSet.getFloat("montototal");
+                obj.setMonto(_monto);
 
-                int _idusuario = objResultSet.getInt("descripcion");
+                String _nombre = objResultSet.getString("nombrecuenta");
+                obj.setNombreCuenta(_nombre);
+
+                int _idusuario = objResultSet.getInt("idusuario");
                 obj.setUsuarioId(_idusuario);
-
                 return obj;
             }
         } catch (Exception ex) {
@@ -100,8 +128,6 @@ public class CuentaDaoSqlServer extends CuentaDao {
         }
         return null;
     }
-
-
 
     public float getMontototal() {
         return montototal;
@@ -112,8 +138,12 @@ public class CuentaDaoSqlServer extends CuentaDao {
     }
 
     @Override
-    public float montoTotal(Cuenta obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public float montoTotal() {
+        Conexion objConexion = Conexion.getOrCreate();
+        String query = "select sum(montototal)as total from tblCuenta ";
+        float resultado = objConexion.ejecutarSimple(query);
+        objConexion.desconectar();
+        return resultado;
     }
 
     @Override

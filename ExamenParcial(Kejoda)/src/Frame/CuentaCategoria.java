@@ -22,7 +22,6 @@ import javax.swing.table.DefaultTableModel;
 public class CuentaCategoria extends javax.swing.JInternalFrame {
 
     CategoriaDao objDao;
-//    Connection cc;
 
     public CuentaCategoria() {
         initComponents();
@@ -304,7 +303,6 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
         jDialogcrearCategoria.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
-
     public void llenarTablacategoria() {
 
         DefaultTableModel modelo = new DefaultTableModel();
@@ -326,8 +324,6 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
         }
         tblcategoria.setModel(modelo);
     }
-
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

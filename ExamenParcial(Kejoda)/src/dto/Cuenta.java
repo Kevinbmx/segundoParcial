@@ -6,7 +6,7 @@ public class Cuenta {
     private String nombreCuenta;
     private float monto;
     private int usuarioId;
-    private float montoTotal;
+//    private float montoTotal;
 
     public Cuenta() {
         ;
@@ -44,13 +44,13 @@ public class Cuenta {
         this.nombreCuenta = nombreUsuario;
     }
 
-    public float getMontoTotal() {
-        return montoTotal;
-    }
-
-    public void setMontoTotal(float montoTotal) {
-        this.montoTotal = montoTotal;
-    }
+//    public float getMontoTotal() {
+//        return montoTotal;
+//    }
+//
+//    public void setMontoTotal(float montoTotal) {
+//        this.montoTotal = montoTotal;
+//    }
 
     
     
