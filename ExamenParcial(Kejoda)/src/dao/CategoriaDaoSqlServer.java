@@ -11,6 +11,7 @@ import dto.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -42,12 +43,39 @@ public class CategoriaDaoSqlServer extends CategoriaDao {
 
     @Override
     public void update(Categoria obj) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       Conexion objConexion = Conexion.getOrCreate();
+        PreparedStatement ps = objConexion.getObjConnection().prepareStatement("EXEC [actualizarcategoria] ?,?,?");
+        ps.setInt(1, obj.getCategoriaId());
+        ps.setString(2, obj.getNombreCategoria());
+        ps.setString(3, obj.getDescripcion());
+        int rpt = ps.executeUpdate();
+        ps.getMoreResults();
+        if (rpt == 1) {
+            JOptionPane.showMessageDialog(null, "Tu categoria fue editada");
+            System.out.println("editado");
+        }
+        objConexion.desconectar();
     }
 
     @Override
     public void delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+              try {
+            Conexion objConexion = Conexion.getOrCreate();
+            PreparedStatement ps = objConexion.getObjConnection().prepareStatement("EXEC [eliminarcategoria] ?");
+            ps.setInt(1, id);
+            int rpt = ps.executeUpdate();
+            ps.getMoreResults();
+            if (rpt == 1) {
+                JOptionPane.showMessageDialog(null, "Tu cuenta fue eliminada");
+                System.out.println("eliminado");
+            } else if (rpt==0) {
+                System.out.println("no eliminado");
+                JOptionPane.showMessageDialog(null, "Tu cuenta no pudo ser eliminada /n"
+                        + "puede estar utilizasa por una transferencia o transaccion");
+                objConexion.desconectar();
+            }
+        } catch (SQLException ex) {
+        }
     }
 
     @Override

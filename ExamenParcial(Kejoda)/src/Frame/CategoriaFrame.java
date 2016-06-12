@@ -19,11 +19,12 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class CuentaCategoria extends javax.swing.JInternalFrame {
+public class CategoriaFrame extends javax.swing.JInternalFrame {
 
     CategoriaDao objDao;
+    private String idetabla = "";
 
-    public CuentaCategoria() {
+    public CategoriaFrame() {
         initComponents();
         llenarTablacategoria();
     }
@@ -43,6 +44,19 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
         txtdescripcion = new javax.swing.JTextArea();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jDialogeditarCategoria = new javax.swing.JDialog();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        txtnombrecategoriaeditar = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtdescripcioneditar = new javax.swing.JTextArea();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtidcategoriaIDeditor = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -51,6 +65,7 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         btnañadircategoria = new javax.swing.JButton();
         btneditarcategoria = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         jDialogcrearCategoria.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         jDialogcrearCategoria.setSize(new java.awt.Dimension(362, 390));
@@ -162,6 +177,132 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        jDialogeditarCategoria.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jDialogeditarCategoria.setSize(new java.awt.Dimension(362, 390));
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel10.setText("CATEGORIA");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(137, 137, 137)
+                .addComponent(jLabel10)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addComponent(jLabel10)
+                .addContainerGap())
+        );
+
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Ingresar"));
+
+        jLabel12.setText("Nombre Categoria");
+
+        jLabel13.setText("Descripcion");
+
+        txtdescripcioneditar.setColumns(20);
+        txtdescripcioneditar.setRows(5);
+        jScrollPane2.setViewportView(txtdescripcioneditar);
+
+        jButton5.setText("Cancelar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("Editar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Num Cat");
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addComponent(jButton6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton5)
+                .addGap(60, 60, 60))
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtnombrecategoriaeditar, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
+                                .addComponent(txtidcategoriaIDeditor, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel13))
+                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap())
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(7, 7, 7)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel12)
+                    .addComponent(txtidcategoriaIDeditor, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtnombrecategoriaeditar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton6)
+                    .addComponent(jButton5))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jDialogeditarCategoriaLayout = new javax.swing.GroupLayout(jDialogeditarCategoria.getContentPane());
+        jDialogeditarCategoria.getContentPane().setLayout(jDialogeditarCategoriaLayout);
+        jDialogeditarCategoriaLayout.setHorizontalGroup(
+            jDialogeditarCategoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialogeditarCategoriaLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jDialogeditarCategoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jDialogeditarCategoriaLayout.setVerticalGroup(
+            jDialogeditarCategoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialogeditarCategoriaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+
         jLabel5.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
         jLabel5.setText("Categoria");
 
@@ -214,6 +355,13 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setText("Eliminar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -229,11 +377,13 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(86, 86, 86)
+                .addGap(53, 53, 53)
                 .addComponent(btnañadircategoria)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(70, 70, 70)
                 .addComponent(btneditarcategoria)
-                .addGap(57, 57, 57))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(39, 39, 39))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,8 +395,9 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnañadircategoria)
-                    .addComponent(btneditarcategoria))
-                .addContainerGap(32, Short.MAX_VALUE))
+                    .addComponent(btneditarcategoria)
+                    .addComponent(jButton1))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -279,7 +430,23 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnañadircategoriaActionPerformed
 
     private void btneditarcategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarcategoriaActionPerformed
-        jDialogcrearCategoria.setVisible(true);
+        int fila = tblcategoria.getSelectedRow();
+        if (fila < 0) {
+            JOptionPane.showMessageDialog(null, "seleccione una fila para poder editar");
+        } else {
+            Categoria obj = new Categoria();
+            CategoriaDao objDao = FactoryDao.getFactoryInstance().getNewCategoriaDao();
+            idetabla = (String) tblcategoria.getValueAt(fila, 0).toString();
+            int id = Integer.parseInt(idetabla);
+            System.out.println(idetabla);
+            System.out.println(id);
+            obj = objDao.get(id);
+            txtidcategoriaIDeditor.setText(obj.getCategoriaId() + "");
+            txtnombrecategoriaeditar.setText(obj.getNombreCategoria());
+            txtdescripcioneditar.setText(obj.getDescripcion() + "");
+            jDialogeditarCategoria.setVisible(true);
+
+        }
     }//GEN-LAST:event_btneditarcategoriaActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -302,6 +469,42 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
         llenarTablacategoria();
         jDialogcrearCategoria.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        jDialogeditarCategoria.setVisible(false);
+        try {
+            CategoriaDao objDao = FactoryDao.getFactoryInstance().getNewCategoriaDao();
+
+            Categoria obj = new Categoria();
+            obj.setCategoriaId(Integer.parseInt(txtidcategoriaIDeditor.getText()));
+            obj.setNombreCategoria(txtnombrecategoriaeditar.getText());
+            obj.setDescripcion(txtdescripcioneditar.getText());
+            objDao.update(obj);
+            System.out.println("entro");
+            llenarTablacategoria();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "No se actualizar la categoria");
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int fila = tblcategoria.getSelectedRow();
+        if (fila < 0) {
+            JOptionPane.showMessageDialog(null, "seleccione una fila para poder eliminar");
+        } else {
+            CategoriaDao objDao = FactoryDao.getFactoryInstance().getNewCategoriaDao();
+            idetabla = (String) tblcategoria.getValueAt(fila, 0).toString();
+            int id = Integer.parseInt(idetabla);
+            JOptionPane.showMessageDialog(null, "estas seguro que quieres eliminar una cuenta");
+            objDao.delete(id);
+            llenarTablacategoria();
+
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public void llenarTablacategoria() {
 
@@ -329,29 +532,36 @@ public class CuentaCategoria extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnañadircategoria;
     private javax.swing.JButton btneditarcategoria;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JDialog jDialogcrearCategoria;
+    private javax.swing.JDialog jDialogeditarCategoria;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable tblcategoria;
     private javax.swing.JTextArea txtdescripcion;
-    private javax.swing.JTextField txtmonto2;
-    private javax.swing.JTextField txtnombre1;
+    private javax.swing.JTextArea txtdescripcioneditar;
+    private javax.swing.JLabel txtidcategoriaIDeditor;
     private javax.swing.JTextField txtnombrecategoria;
+    private javax.swing.JTextField txtnombrecategoriaeditar;
     // End of variables declaration//GEN-END:variables
 }

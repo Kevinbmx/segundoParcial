@@ -67,9 +67,13 @@ public class CuentaDaoSqlServer extends CuentaDao {
             ps.getMoreResults();
             if (rpt == 1) {
                 JOptionPane.showMessageDialog(null, "Tu cuenta fue eliminada");
-                System.out.println("editado");
+                System.out.println("eliminado");
+            } else if (rpt==0) {
+                System.out.println("no eliminado");
+                JOptionPane.showMessageDialog(null, "Tu cuenta no pudo ser eliminada /n"
+                        + "puede estar utilizasa por una transferencia o transaccion");
+                objConexion.desconectar();
             }
-            objConexion.desconectar();
         } catch (SQLException ex) {
         }
     }

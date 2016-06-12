@@ -546,7 +546,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jmenucuentacategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenucuentacategoriaActionPerformed
         try {
-            CuentaCategoria cc = new CuentaCategoria();
+            CategoriaFrame cc = new CategoriaFrame();
             Dimension desktopSize = jDesktopPane1.getSize();
             Dimension FrameSize = cc.getSize();
             jDesktopPane1.add(cc);
@@ -625,7 +625,7 @@ public class Inicio extends javax.swing.JFrame {
             llenarTablacuenta();
             llenarTablaTotal();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "No se pudo realizar la Cuenta ", "MENSAJE", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se actualizar la cuenta");
         }
 
     }//GEN-LAST:event_jButton5ActionPerformed
