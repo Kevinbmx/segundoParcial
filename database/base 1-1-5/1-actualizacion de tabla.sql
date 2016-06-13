@@ -82,7 +82,7 @@ create trigger trigger_ingreso
      join inserted
      on inserted.idcuenta = tblCuenta.idcuenta
      where idtransaccion = inserted.idtransaccion
-go
+
 
 create trigger trigger_gasto
   on tblTransaccion
@@ -99,7 +99,38 @@ create trigger trigger_gasto
      join inserted
      on inserted.idcuenta = tblCuenta.idcuenta
      where idtransaccion = inserted.idtransaccion
-go
+
+create trigger trigger_ingresoActualizar
+  on tblTransaccion
+  for update
+  as
+   declare @monto float
+   select @monto = monto from tblCuenta
+		 join inserted
+		 on inserted.idcuenta = tblCuenta.idcuenta
+		 where tblCuenta.idcuenta = inserted.idcuenta
+  if ((select tipo from inserted) = 'Ingreso')
+    update tblCuenta set montototal = montototal + inserted.monto
+     from tblCuenta
+     join inserted
+     on inserted.idcuenta = tblCuenta.idcuenta
+     where idtransaccion = inserted.idtransaccion
+
+create trigger trigger_gastoActualizar
+  on tblTransaccion
+  for update
+  as
+   declare @monto float
+   select @monto = monto from tblCuenta
+		 join inserted
+		 on inserted.idcuenta = tblCuenta.idcuenta
+		 where tblCuenta.idcuenta = inserted.idcuenta
+  if ((select tipo from inserted) = 'Gasto')
+    update tblCuenta set montototal = montototal - inserted.monto
+     from tblCuenta
+     join inserted
+     on inserted.idcuenta = tblCuenta.idcuenta
+     where idtransaccion = inserted.idtransaccion
 
 
 
