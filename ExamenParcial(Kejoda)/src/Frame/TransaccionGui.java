@@ -13,6 +13,7 @@ import dto.Categoria;
 import dto.Cuenta;
 import dto.Transaccion;
 import factory.FactoryDao;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -32,7 +33,7 @@ import javax.swing.table.DefaultTableModel;
 public class TransaccionGui extends javax.swing.JInternalFrame {
 
     int id0;
-
+Date ne=  new Date(System.currentTimeMillis());
     public TransaccionGui() {
         initComponents();
         mostrarDatos();
@@ -40,6 +41,7 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
         llenarCombocategoria();
         jButton1.setEnabled(false);
         txtfecha.setVisible(false);
+        jLabel4.setText(""+ne);
     }
 
     /**
@@ -74,7 +76,7 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        calendario = new com.toedter.calendar.JDateChooser();
+        jLabel4 = new javax.swing.JLabel();
 
         actualizar.setText("Actualizar");
         actualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -160,6 +162,8 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
 
         jLabel8.setText("En la tabla para actualizar");
 
+        jLabel4.setText("jLabel4");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -174,15 +178,13 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel2)))
-                                    .addComponent(calendario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4))
                                 .addGap(87, 87, 87)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
@@ -223,9 +225,9 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
                                 .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(21, 21, 21)
                                 .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(calendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel4)
+                                .addGap(30, 30, 30)
                                 .addComponent(jLabel3))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(13, 13, 13)
@@ -249,7 +251,7 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelcuenta)
                             .addComponent(cmbidcuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
@@ -267,10 +269,8 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-        int año = calendario.getCalendar().get(Calendar.YEAR);
-        int mes = calendario.getCalendar().get(Calendar.MONTH) + 1;
-        int dia = calendario.getCalendar().get(Calendar.DAY_OF_MONTH);
-        String fechacompleta = (año + "-" + mes + "-" + dia);
+        
+        String fechacompleta = (String.valueOf(ne));
         txtfecha.setText(fechacompleta);
         String hora = (cmbHora.getSelectedItem().toString() + ":" + cmbminuto.getSelectedItem().toString() + " " + cmbAmPm.getSelectedItem().toString());
         try {
@@ -423,7 +423,6 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
     private javax.swing.JTable Tabla;
     private javax.swing.JMenuItem actualizar;
     private javax.swing.JButton btnInsertar;
-    private com.toedter.calendar.JDateChooser calendario;
     private javax.swing.JComboBox<String> cmbAmPm;
     private javax.swing.JComboBox<String> cmbHora;
     private javax.swing.JComboBox<String> cmbidcategoria;
@@ -434,6 +433,7 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
