@@ -95,6 +95,7 @@
                           <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                          <Component id="btneliminar" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="25" max="32767" attributes="0"/>
                   </Group>
@@ -163,7 +164,9 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+              <Component id="btneliminar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -417,6 +420,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="jLabel4"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btneliminar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Eliminar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btneliminarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

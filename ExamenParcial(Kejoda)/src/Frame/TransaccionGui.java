@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.LogManager;
 
 /**
  *
@@ -34,6 +35,7 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
 
     int id0;
 Date ne=  new Date(System.currentTimeMillis());
+ private static final org.apache.log4j.Logger logger = LogManager.getRootLogger();
     public TransaccionGui() {
         initComponents();
         mostrarDatos();
@@ -77,6 +79,7 @@ Date ne=  new Date(System.currentTimeMillis());
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        btneliminar = new javax.swing.JButton();
 
         actualizar.setText("Actualizar");
         actualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -164,6 +167,13 @@ Date ne=  new Date(System.currentTimeMillis());
 
         jLabel4.setText("jLabel4");
 
+        btneliminar.setText("Eliminar");
+        btneliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -209,7 +219,8 @@ Date ne=  new Date(System.currentTimeMillis());
                             .addComponent(btnInsertar)
                             .addComponent(jButton1)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel8))
+                            .addComponent(jLabel8)
+                            .addComponent(btneliminar))
                         .addContainerGap(25, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -262,7 +273,9 @@ Date ne=  new Date(System.currentTimeMillis());
                                 .addComponent(jLabel8)
                                 .addGap(30, 30, 30)
                                 .addComponent(jButton1)))))
-                .addGap(121, 121, 121))
+                .addGap(15, 15, 15)
+                .addComponent(btneliminar)
+                .addGap(83, 83, 83))
         );
 
         pack();
@@ -285,7 +298,7 @@ Date ne=  new Date(System.currentTimeMillis());
 
             objDao.insert(obj);
         } catch (Exception ex) {
-            Logger.getLogger(TransaccionGui.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("error boton insertar "+ex);
         }
         mostrarDatos();
     }//GEN-LAST:event_btnInsertarActionPerformed
@@ -299,6 +312,7 @@ Date ne=  new Date(System.currentTimeMillis());
 
         } catch (Exception e) {
             System.out.print(e);
+            logger.error("error combocategoria "+e);
         }
     }//GEN-LAST:event_cmbidcategoriaActionPerformed
 
@@ -311,6 +325,7 @@ Date ne=  new Date(System.currentTimeMillis());
 
         } catch (Exception e) {
             System.out.print(e);
+            logger.error("error combocuenta "+e);
         }
     }//GEN-LAST:event_cmbidcuentaActionPerformed
 
@@ -352,8 +367,25 @@ Date ne=  new Date(System.currentTimeMillis());
             mostrarDatos();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "No se actualizo la Transaccion");
+            logger.error("error boton actualizar "+ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
+       int fila = Tabla.getSelectedRow();
+        if (fila < 0) {
+            JOptionPane.showMessageDialog(null, "seleccione una fila para poder editar");
+        } else {
+            
+            TransaccionDao objDao = FactoryDao.getFactoryInstance().geTransaccionDao();
+            String idetabla = (String) Tabla.getValueAt(fila, 4).toString();
+            int id = Integer.parseInt(idetabla);
+           
+           objDao.delete(id);
+           mostrarDatos();
+            
+        }
+    }//GEN-LAST:event_btneliminarActionPerformed
 
     public void mostrarDatos() {
         DefaultTableModel modelo = new DefaultTableModel();
@@ -396,6 +428,7 @@ Date ne=  new Date(System.currentTimeMillis());
 
         } catch (Exception e) {
             System.out.print(e);
+            logger.error("error llenar combocuenta "+e);
         }
 
     }
@@ -414,6 +447,7 @@ Date ne=  new Date(System.currentTimeMillis());
 
         } catch (Exception e) {
             System.out.print(e);
+            logger.error("error llenarcombocategoria "+e);
         }
 
     }
@@ -423,6 +457,7 @@ Date ne=  new Date(System.currentTimeMillis());
     private javax.swing.JTable Tabla;
     private javax.swing.JMenuItem actualizar;
     private javax.swing.JButton btnInsertar;
+    private javax.swing.JButton btneliminar;
     private javax.swing.JComboBox<String> cmbAmPm;
     private javax.swing.JComboBox<String> cmbHora;
     private javax.swing.JComboBox<String> cmbidcategoria;

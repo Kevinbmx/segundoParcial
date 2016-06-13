@@ -10,8 +10,10 @@ import dto.Transaccion;
 import dto.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import org.apache.log4j.LogManager;
 
 /**
  *
@@ -19,49 +21,81 @@ import javax.swing.JOptionPane;
  */
 public class TransaccionDaoSqlServer extends TransaccionDao {
 
-    public int insert(Transaccion obj) throws Exception {
+    private static final org.apache.log4j.Logger logger = LogManager.getRootLogger();
 
-        Conexion objConexion = Conexion.getOrCreate();
+    public int insert(Transaccion obj) throws Exception {
         int id = 0;
-        PreparedStatement ps = objConexion.getObjConnection().prepareStatement("exec InsertarTransaccion ?,?,?,?,?,?");
-        ps.setFloat(1, obj.getMonto());
-        ps.setString(2, obj.getFecha());
-        ps.setInt(3, obj.getFK_idCategoria());
-        ps.setInt(4, obj.getFk_idcuenta());
-        ps.setString(5, obj.getTipo());
-        ps.setString(6, obj.getHora());
-        int rpt = ps.executeUpdate();
-        ps.getMoreResults();
-        if (rpt == 1) {
-            System.out.println("insertado");
+        try {
+            Conexion objConexion = Conexion.getOrCreate();
+
+            PreparedStatement ps = objConexion.getObjConnection().prepareStatement("exec InsertarTransaccion ?,?,?,?,?,?");
+            ps.setFloat(1, obj.getMonto());
+            ps.setString(2, obj.getFecha());
+            ps.setInt(3, obj.getFK_idCategoria());
+            ps.setInt(4, obj.getFk_idcuenta());
+            ps.setString(5, obj.getTipo());
+            ps.setString(6, obj.getHora());
+            int rpt = ps.executeUpdate();
+            ps.getMoreResults();
+            if (rpt == 1) {
+                System.out.println("insertado");
+            }
+            objConexion.desconectar();
+
+        } catch (SQLException e) {
+            logger.error(e + "error al insertar");
         }
-        objConexion.desconectar();
         return id;
+
     }
 
     @Override
     public void update(Transaccion obj) throws Exception {
-        Conexion objConexion = Conexion.getOrCreate();
-        PreparedStatement ps = objConexion.getObjConnection().prepareStatement("EXEC [actualizarTransaccion] ?,?,?,?,?,?,?");
-        ps.setInt(1, obj.getIdTransaccion());
-        ps.setString(2, obj.getFecha());
-        ps.setString(3, obj.getHora());
-        ps.setString(4, obj.getTipo());
-        ps.setFloat(5, obj.getMonto());
-        ps.setInt(6, obj.getFk_idcuenta());
-        ps.setInt(7, obj.getFK_idCategoria());
-        int rpt = ps.executeUpdate();
-        ps.getMoreResults();
-        if (rpt == 1) {
-            JOptionPane.showMessageDialog(null, "Tu cuenta fue editada");
-            System.out.println("editado");
+        try {
+            Conexion objConexion = Conexion.getOrCreate();
+            PreparedStatement ps = objConexion.getObjConnection().prepareStatement("EXEC [actualizarTransaccion] ?,?,?,?,?,?,?");
+            ps.setInt(1, obj.getIdTransaccion());
+            ps.setString(2, obj.getFecha());
+            ps.setString(3, obj.getHora());
+            ps.setString(4, obj.getTipo());
+            ps.setFloat(5, obj.getMonto());
+            ps.setInt(6, obj.getFk_idcuenta());
+            ps.setInt(7, obj.getFK_idCategoria());
+            int rpt = ps.executeUpdate();
+            ps.getMoreResults();
+            if (rpt == 1) {
+                JOptionPane.showMessageDialog(null, "Tu cuenta fue editada");
+                System.out.println("editado");
+            }
+            objConexion.desconectar();
+        } catch (SQLException e) {
+            logger.error("error al actualizar "+e);
         }
-        objConexion.desconectar();
+
     }
 
     @Override
     public void delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Conexion objConexion = Conexion.getOrCreate();
+            PreparedStatement ps = objConexion.getObjConnection().prepareStatement("EXEC [eliminarTransaccion] ?");
+            ps.setInt(1, id);
+            int rpt = ps.executeUpdate();
+            ps.getMoreResults();
+            if (rpt == 1) {
+                JOptionPane.showMessageDialog(null, "se elimino transaccion");
+                logger.info("eliminado con exito");
+                System.out.println("eliminado");
+            } else if (rpt == 0) {
+                System.out.println("no eliminado");
+                JOptionPane.showMessageDialog(null, "eliminado");
+                objConexion.desconectar();
+            }
+        } catch (SQLException ex) {
+
+            JOptionPane.showMessageDialog(null, "no se puede eliminar");
+            logger.error("error al eliminar "+ex);
+        }
     }
 
     @Override
@@ -97,11 +131,13 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
 
                 registros.add(obj);
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (SQLException ex) {
+            
+            logger.error("error "+ex);
         }
         return registros;
     }
+
     public ArrayList<Transaccion> getListFecha(String fecha, int id) {
         ArrayList<Transaccion> registros = new ArrayList<Transaccion>();
         try {
@@ -134,8 +170,8 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
 
                 registros.add(obj);
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (SQLException ex) {
+            logger.error("error"+ex);
         }
         return registros;
     }
@@ -171,8 +207,8 @@ public class TransaccionDaoSqlServer extends TransaccionDao {
                 obj.setHora(_hora);
                 return obj;
             }
-        } catch (Exception ex) {
-            ;
+        } catch (SQLException ex) {
+            logger.error("Error"+ex);
         }
         return null;
     }
