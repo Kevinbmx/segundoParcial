@@ -39,7 +39,7 @@ public class TransaccionGui extends javax.swing.JInternalFrame {
         llenarCombocuenta();
         llenarCombocategoria();
         jButton1.setEnabled(false);
-        txtfecha.setEnabled(true);
+        txtfecha.setVisible(false);
     }
 
     /**
