@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.LogManager;
 
 /**
  *
@@ -31,6 +32,8 @@ public class TransferenciaGUI extends javax.swing.JInternalFrame {
     /**
      * Creates new form Transferencia
      */
+    private static final org.apache.log4j.Logger logger = LogManager.getRootLogger();
+    
     public TransferenciaGUI() {
         initComponents();
         setTitle("Transferencias");
@@ -38,6 +41,7 @@ public class TransferenciaGUI extends javax.swing.JInternalFrame {
         cargarTablasCuentas();
         cargarTablaTransferencias();
         limpiarCampos();
+        logger.info("se inicio la ventana de transferencia");
     }
 
     /**
@@ -296,6 +300,7 @@ public class TransferenciaGUI extends javax.swing.JInternalFrame {
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "El monto es incorrecto. Verifique los datos e intente nuevamente.");
+            logger.info("error de intento de insercion de transferrencia. "+ ex.getMessage());
         }
     }//GEN-LAST:event_botontransferirActionPerformed
 
@@ -318,6 +323,7 @@ public class TransferenciaGUI extends javax.swing.JInternalFrame {
                 cargarTablaTransferencias();
             }
         } catch (Exception e) {
+            logger.info("error de intento de eliminacion de transferrencia. "+ e.getMessage());
         }
 
     }//GEN-LAST:event_botonEliminarActionPerformed
@@ -373,6 +379,7 @@ public class TransferenciaGUI extends javax.swing.JInternalFrame {
             tablacuentadestino.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             tablacuentadestino.doLayout();
         } catch (Exception e) {
+            logger.info("Error de cargar de tablas de cuenta en ventana de transfeencia. "+ e.getMessage());
         }
     }
 
@@ -401,12 +408,12 @@ public class TransferenciaGUI extends javax.swing.JInternalFrame {
                 datos[5] = String.valueOf(lista.get(i).getMonto());
                 modelo.addRow(datos);
             }
-
+            
             tablaTransferencias.setModel(modelo);
-
             tablaTransferencias.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             tablaTransferencias.doLayout();
         } catch (Exception e) {
+            logger.info("error de carga de tabla de transferencia de ventana transferencia. "+ e.getMessage());
         }
     }
 
@@ -415,6 +422,6 @@ public class TransferenciaGUI extends javax.swing.JInternalFrame {
         txtmonto.setText("");
         cargarTablasCuentas();
         cargarTablaTransferencias();
+        logger.info("limpiando campos luego de insercion en vanta transferencia.");
     }
-
 }

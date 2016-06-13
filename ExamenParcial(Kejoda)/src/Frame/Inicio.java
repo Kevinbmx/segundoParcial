@@ -29,6 +29,7 @@ public class Inicio extends javax.swing.JFrame {
         llenarTablacuenta();
         llenarTablaTotal();
         llenarusuario();
+        logger.info("SE HA INICIADO LA VENTANA PRINCIPAL DEL SISTEMA.");
     }
 
     @SuppressWarnings("unchecked")
@@ -571,15 +572,13 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jmenucreartransferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenucreartransferenciaActionPerformed
         try {
-            TransferenciaGUI TT = new TransferenciaGUI();
-            Dimension desktopSize = jDesktopPane1.getSize();
-            Dimension FrameSize = TT.getSize();
-            jDesktopPane1.add(TT);
-            TT.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-            TT.show();
-            logger.info("abrio correctamenteinternal frame transferencia");
+            TransferenciaGUI vt = new TransferenciaGUI();
+            jDesktopPane1.add(vt);
+            vt.setLocation(50, 50);
+            vt.show();
+            logger.info("llamando a ventana transferencia.");
         } catch (Exception e) {
-            logger.error("Error al abrir el internal frame transferencia", e);
+            logger.error("Error al abrir ventana transferencia.", e);
         }
     }//GEN-LAST:event_jmenucreartransferenciaActionPerformed
 

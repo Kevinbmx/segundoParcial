@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.apache.log4j.LogManager;
 
 /**
  *
@@ -23,6 +24,8 @@ import javax.swing.JOptionPane;
  */
 public class TransferenciaDaoSqlServer extends TransferenciaDao {
 
+    private static final org.apache.log4j.Logger logger = LogManager.getRootLogger();    
+    
     @Override
     public int insert(Transferencia obj) throws Exception {
         Conexion objConexion = Conexion.getOrCreate();
@@ -39,8 +42,10 @@ public class TransferenciaDaoSqlServer extends TransferenciaDao {
         if (rpt == 1) {
             JOptionPane.showMessageDialog(null, "Se ha registrado una transferencia.");
             id = 1;
+            logger.info("Se ha registrado una transferencia.");
         } else {
             JOptionPane.showMessageDialog(null, "Error al hacer transferencia. Puede que no tengas el dinero solicitado en la cuenta de origeen de la transferencia.");
+            logger.info("Error al hacer transferencia. Puede que no tengas el dinero solicitado en la cuenta de origeen de la transferencia.");
         }
         objConexion.desconectar();
         return id;
@@ -63,11 +68,13 @@ public class TransferenciaDaoSqlServer extends TransferenciaDao {
             if (rpt == 1) {
                 JOptionPane.showMessageDialog(null, "Se ha eliminado el registro exitosamente.");
                 id = 1;
+                logger.info("Se ha eliminado el registro exitosamente.");
             }
             objConexion.desconectar();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al eliminar transferencia. Puede que ya no tengas el dinero transferido en la cuenta de destino, por tanto no podras revirtir la transferencia.");
-       }
+            logger.info("Error al eliminar transferencia. Puede que ya no tengas el dinero transferido en la cuenta de destino, por tanto no podras revirtir la transferencia. "+ ex.getMessage());
+        }
         return id;
     }
 
@@ -99,9 +106,11 @@ public class TransferenciaDaoSqlServer extends TransferenciaDao {
                 obj.setMonto(_monto);
 
                 listaTransferencias.add(obj);
+                logger.info("consultando tabla transferencias");
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+            logger.info("error al consultar tabla transferencias. "+ ex.getMessage());
         }
         return listaTransferencias;
     }

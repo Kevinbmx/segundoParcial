@@ -42,7 +42,7 @@ public class UsuarioDaoSqlServer extends UsuarioDao {
     @Override
     public void delete(int id) {
         Conexion objConexion = Conexion.getOrCreate();
-        StringBuffer query = new StringBuffer("DELETE FROM tblusuarios ");
+        StringBuffer query = new StringBuffer("DELETE FROM tblUsuarios ");
         query.append("WHERE idusuario = " + id);
         objConexion.ejecutarSimple(query.toString());
         objConexion.desconectar();
@@ -53,7 +53,7 @@ public class UsuarioDaoSqlServer extends UsuarioDao {
         ArrayList<Usuario> registros = new ArrayList<Usuario>();
         try {
             Conexion objConexion = Conexion.getOrCreate();
-            String query = "SELECT idusuario, nombreusuario, telefono FROM tblusuarios";
+            String query = "SELECT idusuario, nombreusuario, telefono FROM tblUsuarios";
             ResultSet objResultSet = objConexion.ejecutarSelect(query);
             while (objResultSet.next()) {
                 Usuario obj = new Usuario();
