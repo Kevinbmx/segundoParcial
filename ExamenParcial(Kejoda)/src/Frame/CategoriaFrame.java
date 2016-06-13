@@ -28,6 +28,9 @@ public class CategoriaFrame extends javax.swing.JInternalFrame {
 
     public CategoriaFrame() {
         initComponents();
+        setTitle("Categoria");
+        jDialogcrearCategoria.setTitle("Crear Categoria");
+        jDialogeditarCategoria.setTitle("Editar Categoria");
         llenarTablacategoria();
     }
 
@@ -305,7 +308,7 @@ public class CategoriaFrame extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel5.setText("Categoria");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -313,9 +316,9 @@ public class CategoriaFrame extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(148, 148, 148)
+                .addGap(158, 158, 158)
                 .addComponent(jLabel5)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(182, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -399,7 +402,7 @@ public class CategoriaFrame extends javax.swing.JInternalFrame {
                     .addComponent(btnañadircategoria)
                     .addComponent(btneditarcategoria)
                     .addComponent(jButton1))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -408,17 +411,17 @@ public class CategoriaFrame extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(7, 7, 7)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -461,20 +464,24 @@ public class CategoriaFrame extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        try {
-            CategoriaDao objDao = FactoryDao.getFactoryInstance().getNewCategoriaDao();
-            Categoria obj = new Categoria();
+        if (!txtnombrecategoria.getText().isEmpty() && !txtdescripcion.getText().isEmpty()) {
+            try {
+                CategoriaDao objDao = FactoryDao.getFactoryInstance().getNewCategoriaDao();
+                Categoria obj = new Categoria();
 
-            obj.setNombreCategoria((txtnombrecategoria.getText()));
-            obj.setDescripcion(txtdescripcion.getText());
-            objDao.insert(obj);
-            JOptionPane.showMessageDialog(null, "Tu categoria fue insertada");
-            vaciarcamposcrear();
-            llenarTablacategoria();
-            jDialogcrearCategoria.setVisible(false);
-            logger.info("Tu categoria fue insertada");
-        } catch (Exception ex) {
-            Logger.getLogger(TransaccionGui.class.getName()).log(Level.SEVERE, null, ex);
+                obj.setNombreCategoria((txtnombrecategoria.getText()));
+                obj.setDescripcion(txtdescripcion.getText());
+                objDao.insert(obj);
+                JOptionPane.showMessageDialog(null, "Tu categoria fue insertada");
+                vaciarcamposcrear();
+                llenarTablacategoria();
+                jDialogcrearCategoria.setVisible(false);
+                logger.info("Tu categoria fue insertada");
+            } catch (Exception ex) {
+                Logger.getLogger(TransaccionGui.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "llenes los espacios vacios");
         }
 
     }//GEN-LAST:event_jButton4ActionPerformed

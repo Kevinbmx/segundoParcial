@@ -26,6 +26,9 @@ public class Inicio extends javax.swing.JFrame {
 
     public Inicio() {
         initComponents();
+        setTitle("Administrador de Dinero - Kejoda");
+        jDialogCrearcuenta.setTitle("Crear Cuenta");
+        jDialogEditarcuenta.setTitle("Editar Cuenta");
         llenarTablacuenta();
         llenarTablaTotal();
         llenarusuario();
@@ -585,9 +588,11 @@ public class Inicio extends javax.swing.JFrame {
     private void jmenucreartransaccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenucreartransaccionActionPerformed
         try {
             TransaccionGui t = new TransaccionGui();
+            Dimension desktopSize = jDesktopPane1.getSize();
+            Dimension FrameSize = t.getSize();
             jDesktopPane1.add(t);
+            t.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
             t.show();
-            t.setLocation(50, 5);
             logger.info("abrio correctamenteinternal frame transaccion");
         } catch (Exception e) {
             logger.error("Error al abrir el internal frame transaccion", e);
@@ -597,9 +602,11 @@ public class Inicio extends javax.swing.JFrame {
     private void jmenulistatransaccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenulistatransaccionActionPerformed
         try {
             TransaccionBusqueda t = new TransaccionBusqueda();
+            Dimension desktopSize = jDesktopPane1.getSize();
+            Dimension FrameSize = t.getSize();
             jDesktopPane1.add(t);
+            t.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
             t.show();
-            t.setLocation(50, 5);
             logger.info("abrio correctamenteinternal frame transaccion");
         } catch (Exception e) {
             logger.error("Error al abrir el internal frame busqueda transaccion ", e);
@@ -614,23 +621,30 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnañadircuentaActionPerformed
 
     private void btnaceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaceptarActionPerformed
-        try {
-            CuentaDao objDao = FactoryDao.getFactoryInstance().getNewCuentaDao();
-            Cuenta obj = new Cuenta();
-            obj.setNombreCuenta((txtnombre.getText()));
-            obj.setMonto(Float.valueOf(txtmonto.getText()));
-            obj.setUsuarioId(1);
-            objDao.insert(obj);
-            JOptionPane.showMessageDialog(null, "Tu cuenta fue insertada");
-            vaciarcamposcrear();
-            logger.info("cuenta no insertada");
-        } catch (Exception e) {
-            logger.error("Error cuenta no insertada", e);
-            JOptionPane.showMessageDialog(null, "Tu cuenta no fue insertada");
+        if (!txtnombre.getText().isEmpty() && !txtmonto.getText().isEmpty()) {
+            try {
+                CuentaDao objDao = FactoryDao.getFactoryInstance().getNewCuentaDao();
+                Cuenta obj = new Cuenta();
+                obj.setNombreCuenta((txtnombre.getText()));
+                obj.setMonto(Float.valueOf(txtmonto.getText()));
+                obj.setUsuarioId(1);
+                objDao.insert(obj);
+                JOptionPane.showMessageDialog(null, "Tu cuenta fue insertada");
+                vaciarcamposcrear();
+                logger.info("cuenta no insertada");
+
+            } catch (Exception e) {
+                logger.error("Error cuenta no insertada", e);
+                JOptionPane.showMessageDialog(null, "Tu cuenta no fue insertada");
+            }
+            llenarTablacuenta();
+            llenarTablaTotal();
+            jDialogCrearcuenta.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "llene los campos vacios");
         }
-        llenarTablacuenta();
-        llenarTablaTotal();
-        jDialogCrearcuenta.setVisible(false);
+
+
     }//GEN-LAST:event_btnaceptarActionPerformed
 
     private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
