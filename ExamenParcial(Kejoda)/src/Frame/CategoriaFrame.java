@@ -18,11 +18,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.LogManager;
 
 public class CategoriaFrame extends javax.swing.JInternalFrame {
 
     CategoriaDao objDao;
     private String idetabla = "";
+    private static final org.apache.log4j.Logger logger = LogManager.getRootLogger();
 
     public CategoriaFrame() {
         initComponents();
@@ -430,23 +432,27 @@ public class CategoriaFrame extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnañadircategoriaActionPerformed
 
     private void btneditarcategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarcategoriaActionPerformed
-        int fila = tblcategoria.getSelectedRow();
-        if (fila < 0) {
-            JOptionPane.showMessageDialog(null, "seleccione una fila para poder editar");
-        } else {
-            Categoria obj = new Categoria();
-            CategoriaDao objDao = FactoryDao.getFactoryInstance().getNewCategoriaDao();
-            idetabla = (String) tblcategoria.getValueAt(fila, 0).toString();
-            int id = Integer.parseInt(idetabla);
-            System.out.println(idetabla);
-            System.out.println(id);
-            obj = objDao.get(id);
-            txtidcategoriaIDeditor.setText(obj.getCategoriaId() + "");
-            txtnombrecategoriaeditar.setText(obj.getNombreCategoria());
-            txtdescripcioneditar.setText(obj.getDescripcion() + "");
-            jDialogeditarCategoria.setVisible(true);
-            jDialogeditarCategoria.setLocationRelativeTo(null);
-
+        try {
+            int fila = tblcategoria.getSelectedRow();
+            if (fila < 0) {
+                JOptionPane.showMessageDialog(null, "seleccione una fila para poder editar");
+            } else {
+                Categoria obj = new Categoria();
+                CategoriaDao objDao = FactoryDao.getFactoryInstance().getNewCategoriaDao();
+                idetabla = (String) tblcategoria.getValueAt(fila, 0).toString();
+                int id = Integer.parseInt(idetabla);
+                System.out.println(idetabla);
+                System.out.println(id);
+                obj = objDao.get(id);
+                txtidcategoriaIDeditor.setText(obj.getCategoriaId() + "");
+                txtnombrecategoriaeditar.setText(obj.getNombreCategoria());
+                txtdescripcioneditar.setText(obj.getDescripcion() + "");
+                jDialogeditarCategoria.setVisible(true);
+                jDialogeditarCategoria.setLocationRelativeTo(null);
+                logger.info("lleno de los campos correctamente ");
+            }
+        } catch (Exception e) {
+            logger.error("Error al llenar los campos para editar ", e);
         }
     }//GEN-LAST:event_btneditarcategoriaActionPerformed
 
@@ -464,11 +470,13 @@ public class CategoriaFrame extends javax.swing.JInternalFrame {
             objDao.insert(obj);
             JOptionPane.showMessageDialog(null, "Tu categoria fue insertada");
             vaciarcamposcrear();
+            llenarTablacategoria();
+            jDialogcrearCategoria.setVisible(false);
+            logger.info("Tu categoria fue insertada");
         } catch (Exception ex) {
             Logger.getLogger(TransaccionGui.class.getName()).log(Level.SEVERE, null, ex);
         }
-        llenarTablacategoria();
-        jDialogcrearCategoria.setVisible(false);
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -488,46 +496,53 @@ public class CategoriaFrame extends javax.swing.JInternalFrame {
             System.out.println("entro");
             llenarTablacategoria();
             vaciarcamposeditar();
+            logger.info("Tu categoria ha sido actualizada");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "No se actualizar la categoria");
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int fila = tblcategoria.getSelectedRow();
-        if (fila < 0) {
-            JOptionPane.showMessageDialog(null, "seleccione una fila para poder eliminar");
-        } else {
-            CategoriaDao objDao = FactoryDao.getFactoryInstance().getNewCategoriaDao();
-            idetabla = (String) tblcategoria.getValueAt(fila, 0).toString();
-            int id = Integer.parseInt(idetabla);
-            JOptionPane.showMessageDialog(null, "estas seguro que quieres eliminar una categoria");
-            objDao.delete(id);
-            llenarTablacategoria();
-
+        try {
+            int fila = tblcategoria.getSelectedRow();
+            if (fila < 0) {
+                JOptionPane.showMessageDialog(null, "seleccione una fila para poder eliminar");
+            } else {
+                CategoriaDao objDao = FactoryDao.getFactoryInstance().getNewCategoriaDao();
+                idetabla = (String) tblcategoria.getValueAt(fila, 0).toString();
+                int id = Integer.parseInt(idetabla);
+                JOptionPane.showMessageDialog(null, "estas seguro que quieres eliminar una categoria");
+                objDao.delete(id);
+                llenarTablacategoria();
+            }
+            logger.info("Tu categoria seleccionada ha sido eliminada");
+        } catch (Exception e) {
+            logger.error("Error al eliminar la categoria", e);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void llenarTablacategoria() {
-
-        DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("ID");
-        modelo.addColumn("NOMBRE");
-        modelo.addColumn("DESCRPCION");
-
-        tblcategoria.setModel(modelo);
-
-        String[] datos = new String[4];
-        CategoriaDao objDao = FactoryDao.getFactoryInstance().getNewCategoriaDao();
-        List<Categoria> lista = new ArrayList();
-        lista = objDao.getList();
-        for (int i = 0; i < lista.size(); i++) {
-            datos[0] = String.valueOf(lista.get(i).getCategoriaId());
-            datos[1] = lista.get(i).getNombreCategoria();
-            datos[2] = String.valueOf(lista.get(i).getDescripcion());
-            modelo.addRow(datos);
+        try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            modelo.addColumn("ID");
+            modelo.addColumn("NOMBRE");
+            modelo.addColumn("DESCRPCION");
+            tblcategoria.setModel(modelo);
+            String[] datos = new String[4];
+            CategoriaDao objDao = FactoryDao.getFactoryInstance().getNewCategoriaDao();
+            List<Categoria> lista = new ArrayList();
+            lista = objDao.getList();
+            for (int i = 0; i < lista.size(); i++) {
+                datos[0] = String.valueOf(lista.get(i).getCategoriaId());
+                datos[1] = lista.get(i).getNombreCategoria();
+                datos[2] = String.valueOf(lista.get(i).getDescripcion());
+                modelo.addRow(datos);
+            }
+            logger.info("Tu tabla categoria ha sido llenada ");
+            tblcategoria.setModel(modelo);
+        } catch (Exception e) {
+            logger.error("Error al llenar la tabla de categoria", e);
         }
-        tblcategoria.setModel(modelo);
     }
 
     public void vaciarcamposcrear() {

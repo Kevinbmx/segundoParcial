@@ -8,6 +8,7 @@ import dto.Usuario;
 import factory.FactoryDao;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -15,10 +16,13 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.DesktopPaneUI;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.PropertyConfigurator;
 
 public class Inicio extends javax.swing.JFrame {
 
     private String idetabla = "";
+    private static final org.apache.log4j.Logger logger = LogManager.getRootLogger();
 
     public Inicio() {
         initComponents();
@@ -37,8 +41,8 @@ public class Inicio extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         txtnombre = new javax.swing.JTextField();
         txtmonto = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnaceptar = new javax.swing.JButton();
+        btncancelar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jDialogEditarcuenta = new javax.swing.JDialog();
@@ -47,8 +51,8 @@ public class Inicio extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         txtnombreeditar = new javax.swing.JTextField();
         txtmontoeditar = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btneditarcuenta = new javax.swing.JButton();
+        btncancelar1 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         txtnumid = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
@@ -69,8 +73,8 @@ public class Inicio extends javax.swing.JFrame {
         btnañadircuenta = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblcuentas = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btneditar = new javax.swing.JButton();
+        btneliminar = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -91,17 +95,17 @@ public class Inicio extends javax.swing.JFrame {
 
         jLabel10.setText("Nombre de Cuenta");
 
-        jButton1.setText("Aceptar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnaceptar.setText("Aceptar");
+        btnaceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnaceptarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btncancelar.setText("Cancelar");
+        btncancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btncancelarActionPerformed(evt);
             }
         });
 
@@ -116,9 +120,9 @@ public class Inicio extends javax.swing.JFrame {
                         .addGap(4, 4, 4)
                         .addComponent(jLabel10))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnaceptar)
                         .addGap(63, 63, 63)
-                        .addComponent(jButton2))
+                        .addComponent(btncancelar))
                     .addComponent(txtmonto, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
@@ -141,8 +145,8 @@ public class Inicio extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2)
-                            .addComponent(jButton1))
+                            .addComponent(btncancelar)
+                            .addComponent(btnaceptar))
                         .addGap(20, 20, 20))))
         );
 
@@ -198,17 +202,17 @@ public class Inicio extends javax.swing.JFrame {
 
         jLabel11.setText("Nombre de Cuenta");
 
-        jButton5.setText("Editar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btneditarcuenta.setText("Editar");
+        btneditarcuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btneditarcuentaActionPerformed(evt);
             }
         });
 
-        jButton6.setText("Cancelar");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btncancelar1.setText("Cancelar");
+        btncancelar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btncancelar1ActionPerformed(evt);
             }
         });
 
@@ -222,9 +226,9 @@ public class Inicio extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jButton5)
+                        .addComponent(btneditarcuenta)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
-                        .addComponent(jButton6)
+                        .addComponent(btncancelar1)
                         .addGap(56, 56, 56))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,8 +269,8 @@ public class Inicio extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton6)
-                            .addComponent(jButton5))
+                            .addComponent(btncancelar1)
+                            .addComponent(btneditarcuenta))
                         .addGap(20, 20, 20))))
         );
 
@@ -375,17 +379,17 @@ public class Inicio extends javax.swing.JFrame {
         tblcuentas.getTableHeader().setReorderingAllowed(false);
         jScrollPane5.setViewportView(tblcuentas);
 
-        jButton3.setText("Editar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btneditar.setText("Editar");
+        btneditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btneditarActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Eliminar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btneliminar.setText("Eliminar");
+        btneliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btneliminarActionPerformed(evt);
             }
         });
 
@@ -428,9 +432,9 @@ public class Inicio extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnañadircuenta)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton3)
+                                .addComponent(btneditar)
                                 .addGap(26, 26, 26)
-                                .addComponent(jButton4))))
+                                .addComponent(btneliminar))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(107, 107, 107)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -463,8 +467,8 @@ public class Inicio extends javax.swing.JFrame {
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton4)
-                            .addComponent(jButton3)
+                            .addComponent(btneliminar)
+                            .addComponent(btneditar)
                             .addComponent(btnañadircuenta)))
                     .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(307, Short.MAX_VALUE))
@@ -558,7 +562,9 @@ public class Inicio extends javax.swing.JFrame {
             jDesktopPane1.add(cc);
             cc.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
             cc.show();
+            logger.info("abrio correctamenteinternal frame categoria");
         } catch (Exception e) {
+            logger.error("Error al abrir el internal frame categoria", e);
         }
 
     }//GEN-LAST:event_jmenucuentacategoriaActionPerformed
@@ -571,7 +577,9 @@ public class Inicio extends javax.swing.JFrame {
             jDesktopPane1.add(TT);
             TT.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
             TT.show();
+            logger.info("abrio correctamenteinternal frame transferencia");
         } catch (Exception e) {
+            logger.error("Error al abrir el internal frame transferencia", e);
         }
     }//GEN-LAST:event_jmenucreartransferenciaActionPerformed
 
@@ -581,7 +589,9 @@ public class Inicio extends javax.swing.JFrame {
             jDesktopPane1.add(t);
             t.show();
             t.setLocation(50, 5);
+            logger.info("abrio correctamenteinternal frame transaccion");
         } catch (Exception e) {
+            logger.error("Error al abrir el internal frame transaccion", e);
         }
     }//GEN-LAST:event_jmenucreartransaccionActionPerformed
 
@@ -591,7 +601,9 @@ public class Inicio extends javax.swing.JFrame {
             jDesktopPane1.add(t);
             t.show();
             t.setLocation(50, 5);
+            logger.info("abrio correctamenteinternal frame transaccion");
         } catch (Exception e) {
+            logger.error("Error al abrir el internal frame busqueda transaccion ", e);
         }
     }//GEN-LAST:event_jmenulistatransaccionActionPerformed
 
@@ -602,59 +614,56 @@ public class Inicio extends javax.swing.JFrame {
         jDialogCrearcuenta.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnañadircuentaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnaceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaceptarActionPerformed
         try {
             CuentaDao objDao = FactoryDao.getFactoryInstance().getNewCuentaDao();
             Cuenta obj = new Cuenta();
-
             obj.setNombreCuenta((txtnombre.getText()));
             obj.setMonto(Float.valueOf(txtmonto.getText()));
             obj.setUsuarioId(1);
             objDao.insert(obj);
             JOptionPane.showMessageDialog(null, "Tu cuenta fue insertada");
             vaciarcamposcrear();
-        } catch (Exception ex) {
+            logger.info("cuenta no insertada");
+        } catch (Exception e) {
+            logger.error("Error cuenta no insertada", e);
             JOptionPane.showMessageDialog(null, "Tu cuenta no fue insertada");
-            Logger.getLogger(TransaccionGui.class.getName()).log(Level.SEVERE, null, ex);
         }
         llenarTablacuenta();
         llenarTablaTotal();
-
         jDialogCrearcuenta.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnaceptarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
         jDialogCrearcuenta.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btncancelarActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btneditarcuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarcuentaActionPerformed
         jDialogEditarcuenta.setVisible(false);
         try {
             CuentaDao objDao = FactoryDao.getFactoryInstance().getNewCuentaDao();
-
             Cuenta obj = new Cuenta();
             obj.setCuentaId(Integer.parseInt(txtnumid.getText()));
             obj.setNombreCuenta(txtnombreeditar.getText());
             obj.setMonto(Float.parseFloat(txtmontoeditar.getText()));
             obj.setUsuarioId(1);
-
             objDao.update(obj);
             System.out.println("entro");
             vaciarcamposeditar();
             llenarTablacuenta();
             llenarTablaTotal();
-        } catch (Exception ex) {
+            logger.info("cuenta no actualizada");
+        } catch (Exception e) {
+            logger.error("Error cuenta no actualizada", e);
             JOptionPane.showMessageDialog(null, "No se actualizar la cuenta");
         }
+    }//GEN-LAST:event_btneditarcuentaActionPerformed
 
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void btncancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelar1ActionPerformed
         jDialogEditarcuenta.setVisible(false);
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_btncancelar1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
+    private void btneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarActionPerformed
         try {
             int fila = tblcuentas.getSelectedRow();
             if (fila < 0) {
@@ -674,13 +683,14 @@ public class Inicio extends javax.swing.JFrame {
                 jDialogEditarcuenta.setVisible(true);
                 jDialogEditarcuenta.setLocationRelativeTo(null);
             }
+            logger.info("se lleno los campos para editar cuenta");
         } catch (Exception e) {
+            logger.error("Error no se pudo llenar los campos para editar cuenta", e);
             JOptionPane.showMessageDialog(null, "no ha sido editado su cuenta");
         }
+    }//GEN-LAST:event_btneditarActionPerformed
 
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
 
         try {
             int fila = tblcuentas.getSelectedRow();
@@ -695,9 +705,11 @@ public class Inicio extends javax.swing.JFrame {
                 llenarTablacuenta();
                 llenarTablaTotal();
             }
+            logger.info("se pudo eliminar la cuenta correctamente");
         } catch (Exception e) {
+            logger.error("Error no se pudo eliminar la cuenta", e);
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btneliminarActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         llenarTablaTotal();
@@ -713,6 +725,13 @@ public class Inicio extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+
+        String resource
+                = "/auditoria.properties";
+        URL configFileResource;
+        configFileResource = Inicio.class.getResource(resource);
+        PropertyConfigurator.configure(configFileResource);
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -740,41 +759,55 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     public void llenarTablacuenta() {
-
-        DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("ID");
-        modelo.addColumn("NOMBRE");
-        modelo.addColumn("MONTO");
-        String[] datos = new String[4];
-        CuentaDao objDao = FactoryDao.getFactoryInstance().getNewCuentaDao();
-        List<Cuenta> lista = new ArrayList();
-        lista = objDao.getList();
-        for (int i = 0; i < lista.size(); i++) {
-            datos[0] = String.valueOf(lista.get(i).getCuentaId());
-            datos[1] = lista.get(i).getNombreCuenta();
-            datos[2] = String.valueOf(lista.get(i).getMonto());
-            modelo.addRow(datos);
+        try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            modelo.addColumn("ID");
+            modelo.addColumn("NOMBRE");
+            modelo.addColumn("MONTO");
+            String[] datos = new String[4];
+            CuentaDao objDao = FactoryDao.getFactoryInstance().getNewCuentaDao();
+            List<Cuenta> lista = new ArrayList();
+            lista = objDao.getList();
+            for (int i = 0; i < lista.size(); i++) {
+                datos[0] = String.valueOf(lista.get(i).getCuentaId());
+                datos[1] = lista.get(i).getNombreCuenta();
+                datos[2] = String.valueOf(lista.get(i).getMonto());
+                modelo.addRow(datos);
+            }
+            tblcuentas.setModel(modelo);
+            logger.info("lleno de tablacuenta");
+        } catch (Exception e) {
+            logger.warn("no llenada de tabla cuenta");
         }
-        tblcuentas.setModel(modelo);
     }
 
     public void llenarTablaTotal() {
-        float montototal = 0;
-        CuentaDao objDao = FactoryDao.getFactoryInstance().getNewCuentaDao();
-        List<Cuenta> lista = new ArrayList();
-        lista = objDao.getList();
-        for (int i = 0; i < lista.size(); i++) {
-            montototal = montototal + lista.get(i).getMonto();
+        try {
+            float montototal = 0;
+            CuentaDao objDao = FactoryDao.getFactoryInstance().getNewCuentaDao();
+            List<Cuenta> lista = new ArrayList();
+            lista = objDao.getList();
+            for (int i = 0; i < lista.size(); i++) {
+                montototal = montototal + lista.get(i).getMonto();
+            }
+            txttotal.setText(" " + montototal + " Bs");
+            logger.info("llenar monto total");
+        } catch (Exception e) {
+            logger.warn("error al llenar monto total");
         }
-        txttotal.setText(" " + montototal + " Bs");
     }
 
     public void llenarusuario() {
-        UsuarioDao objDao = FactoryDao.getFactoryInstance().getNewUsuarioDao();
-        List<Usuario> lista = new ArrayList();
-        lista = objDao.getList();
-        labelnombre.setText(lista.get(0).getNombre());
-        labeltelefono.setText(lista.get(0).getTelefono());
+        try {
+            UsuarioDao objDao = FactoryDao.getFactoryInstance().getNewUsuarioDao();
+            List<Usuario> lista = new ArrayList();
+            lista = objDao.getList();
+            labelnombre.setText(lista.get(0).getNombre());
+            labeltelefono.setText(lista.get(0).getTelefono());
+            logger.info("llenar campo de usuario");
+        } catch (Exception e) {
+            logger.warn("error al llenar el campo de usuario");
+        }
     }
 
     public void vaciarcamposcrear() {
@@ -788,13 +821,13 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnaceptar;
     private javax.swing.JButton btnañadircuenta;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton btncancelar;
+    private javax.swing.JButton btncancelar1;
+    private javax.swing.JButton btneditar;
+    private javax.swing.JButton btneditarcuenta;
+    private javax.swing.JButton btneliminar;
     private javax.swing.JButton jButton7;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JDialog jDialogCrearcuenta;

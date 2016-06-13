@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import org.apache.log4j.LogManager;
 
 /**
  *
@@ -22,6 +23,7 @@ public class CuentaDaoSqlServer extends CuentaDao {
 
     ArrayList<Cuenta> cuenta;
     private float montototal;
+    private static final org.apache.log4j.Logger logger = LogManager.getRootLogger();
 
     @Override
     public int insert(Cuenta obj) throws Exception {
@@ -67,6 +69,7 @@ public class CuentaDaoSqlServer extends CuentaDao {
             ps.getMoreResults();
             if (rpt == 1) {
                 JOptionPane.showMessageDialog(null, "Tu cuenta fue eliminada");
+                logger.info("tu cuenta fue eliminada");
                 System.out.println("eliminado");
             } else if (rpt == 0) {
                 System.out.println("no eliminado");
@@ -75,6 +78,7 @@ public class CuentaDaoSqlServer extends CuentaDao {
                 objConexion.desconectar();
             }
         } catch (SQLException ex) {
+            logger.warn("no fue eliminada tu cuenta");
             System.out.println("holaaaa");
             JOptionPane.showMessageDialog(null, "no se puede eliminar por que esta cuenta esta siendo utilizada en alguna transaccion actual");
 
@@ -83,7 +87,6 @@ public class CuentaDaoSqlServer extends CuentaDao {
 
     @Override
     public ArrayList<Cuenta> getList() {
-
         cuenta = new ArrayList<Cuenta>();
         try {
             Conexion objConexion = Conexion.getOrCreate();
@@ -102,7 +105,9 @@ public class CuentaDaoSqlServer extends CuentaDao {
 
                 cuenta.add(obj);
             }
+            logger.info("lista de cuentas");
         } catch (Exception ex) {
+            logger.info("lista de cuentas no obtenidas");
             ex.printStackTrace();
         }
         return cuenta;
@@ -130,7 +135,9 @@ public class CuentaDaoSqlServer extends CuentaDao {
                 obj.setUsuarioId(_idusuario);
                 return obj;
             }
+            logger.info("obtener informacion de cuenta por id");
         } catch (Exception ex) {
+            logger.info("no obtubo informacion de cuenta por id");
             ;
         }
         return null;
@@ -168,10 +175,11 @@ public class CuentaDaoSqlServer extends CuentaDao {
                 obj.setNombreCuenta(_nombrecuenta);
                 return obj;
             }
+            logger.info("obtener informacion por nombre");
         } catch (Exception ex) {
+            logger.info("no obtubo informacion por nombre");
             ;
         }
         return null;
     }
-
 }
