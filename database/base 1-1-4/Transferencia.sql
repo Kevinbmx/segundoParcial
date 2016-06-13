@@ -10,6 +10,7 @@ RETURN
 (
 	SELECT * FROM tblTransferencia
 )
+go
 
 /*SELECT * FROM selectTransferencia()*/
 
@@ -30,7 +31,7 @@ begin try
 		rollback
 		print error_message() 
 	end catch
-
+go
 /*exec insertTransferencia 3, 2, 'Transferencia  de Billetera-3 a 2, de $ 1600', '20160611', 1600*/
 
 /*--Eliminar Transferencias--*/
@@ -42,6 +43,7 @@ BEGIN
      WHERE  
      idtransferencia = @idtransferencia
 END
+go
 
 /*exec dbo.deleteTransferencia 3*/
 
@@ -63,6 +65,7 @@ BEGIN
       WHERE  
       idtransferencia = @idtransferencia
 END
+go
 
 /*EXEC dbo.updateTransferencia  1, 2, 2, 'Descripcion', '20160605', 300*/
 
@@ -94,6 +97,7 @@ create trigger al_insertartransferencia_inc_cuentadestino
     raiserror ('Hay menos saldo en la cuenta de origen, de los solicitados para la tranferencia', 16, 1)
     rollback transaction
   end
+  go
 
 /*Tranferencia - Segundo trigger a ejecutar para insertar*/
 create trigger al_insertartransferencia_decr_cuentaorigen
@@ -116,8 +120,8 @@ create trigger al_insertartransferencia_decr_cuentaorigen
     raiserror ('Hay menos saldo en la cuenta de origen, de los solicitados para la tranferencia', 16, 1)
     rollback transaction
   end
-
-/--------------------------------------------------------------------------------------------------------------
+go
+/*--------------------------------------------------------------------------------------------------------------*/
 
 /*Tranferencia - Primer trigger a ejecutar para eliminar*/
 create trigger al_eliminartransferencia_mod_cuentaorigen
@@ -140,6 +144,7 @@ create trigger al_eliminartransferencia_mod_cuentaorigen
     raiserror ('Hay menos saldo en la cuenta de destinoque lo tranferido, no se puede revertir la transferencia', 16, 1)
     rollback transaction
   end
+go
 
 /*Tranferencia - Segundo trigger a ejecutar para eliminar*/
 create trigger al_eliminartransferencia_mod_cuentadestino
@@ -162,5 +167,5 @@ create trigger al_eliminartransferencia_mod_cuentadestino
     raiserror ('Hay menos saldo en la cuenta de destino que lo tranferido, no se puede revertir la transferencia', 16, 1)
     rollback transaction
   end
-
+go
 

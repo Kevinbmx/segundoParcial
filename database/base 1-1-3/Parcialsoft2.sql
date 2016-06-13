@@ -5,3 +5,4 @@ return(select idcuenta,montototal, nombrecuenta,idusuario
 		 FROM tblCuenta
 		  WHERE idcuenta = @cuentaid
 )
+go

@@ -5,6 +5,7 @@ return(select idcuenta, nombrecuenta,idusuario
 		 FROM tblCuenta
 		  WHERE idcuenta = @cuentaid
 )
+go
 
 CREATE FUNCTION [dbo].[fn_cuentanombreid] (@nombre varchar(50))
 RETURNS table  
@@ -13,6 +14,7 @@ return(select idcuenta, nombrecuenta
 		 FROM tblCuenta
 		  WHERE nombrecuenta = @nombre
 )
+go
 
 CREATE FUNCTION [dbo].[fn_categorianombreid] (@nombre varchar(50))
 RETURNS table  
@@ -21,3 +23,4 @@ return(select idcategoria, nombrecategoria
 		 FROM tblCategoria
 		  WHERE nombrecategoria = @nombre
 )
+go
